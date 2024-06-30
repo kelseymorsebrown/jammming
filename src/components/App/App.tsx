@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './App.module.css';
 import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
+import Playlist from '../Playlist/Playlist';
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
           <SearchResults />
           </div>
           <div className={styles.colRight}>
-
+            <Playlist />
           </div>
       </main>
     </div>
