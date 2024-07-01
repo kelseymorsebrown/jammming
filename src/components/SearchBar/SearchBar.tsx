@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import styles from './SearchBar.module.css';
 
-function SearchBar() {
+type AppProps = {
+  searchSpotify: Function;
+};
+function SearchBar({ searchSpotify }: AppProps) {
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleSearchTermChange = ( e: React.FormEvent<HTMLInputElement> ) => setSearchTerm(e.currentTarget.value);
@@ -9,11 +12,12 @@ function SearchBar() {
   const handleSubmit = (event: React.MouseEvent<HTMLInputElement>) => {
     event.preventDefault();
 
-    // searchSpotify(searchTerm);
+    searchSpotify(searchTerm);
   };
 
   return (
-    <form className={styles.SearchBar}>
+    <div className={styles.SearchBar}>
+      <form>
       <input
         type="search"
         name="term"
@@ -21,8 +25,10 @@ function SearchBar() {
         placeholder="Search Spotify"
         onChange={handleSearchTermChange}
       />
-      <input type="submit" value="Search" onClick={handleSubmit} />
-    </form>
+        <input type="submit" value="Search" onClick={handleSubmit} />
+      </form>
+      <p>{ searchTerm }</p>
+    </div>
   )
 }
 

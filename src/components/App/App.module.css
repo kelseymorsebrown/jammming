@@ -2,6 +2,7 @@
   text-align: center;
   display: flex;
   flex-direction: column;
+  background-color: blueviolet;
   height: 100%;
 }
 
@@ -22,11 +23,9 @@
 .colLeft {
   height: 100%;
   width: 50%;
-  background-color: blue;
 }
 
 .colRight {
   height: 100%;
   width: 50%;
-  background-color: teal;
 }

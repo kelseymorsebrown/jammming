@@ -1,0 +1,2 @@
+http GET 'https://api.spotify.com/v1/search?q=coding&type=track&market=US&limit=5&offset=0' \
+  Authorization:'Bearer 1POdFZRZbvb...qqillRxMr2z'

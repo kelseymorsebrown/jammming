@@ -10,7 +10,7 @@ type AppProps = {
 function Tracklist({ tracks }: AppProps) {
 
   const trackList = tracks.map((track, i) => {
-    return <Track track={track} key={track.name + i} />;
+    return <Track track={track} key={track.id + i} />;
   });
 
   return <div className={styles.TrackList}>{trackList}</div>

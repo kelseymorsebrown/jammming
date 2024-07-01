@@ -2,6 +2,7 @@ export interface TrackData {
   name: string;
   artists: Artist[];
   album: Album;
+  id: string;
 }
 
 export interface Artist {

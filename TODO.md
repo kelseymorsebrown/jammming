@@ -1,16 +1,11 @@
 # Next Step
 
-Implement Track Listing in The Component Tree
+Your Jammming web app should allow the user to customize their playlist title and tracks. When a user creates a playlist, your app should display the playlist name and tracks from the playlist.
 
-When a user requests data from Spotify, the JSON response will contain a set of song tracks. Your Jammming web app should display the song name, artist, and album for each track in the results list.
-
-Implement this by creating a unidirectional data flow from your root component. The root component should pass down the search results to a child component that will return each individual track to be rendered.
-
-Since the Spotify API is not currently set up to be called, you may hard-code an array of track objects to be passed down for now.
+Create a unidirectional data flow from your root component to relevant children components. This data flow should pass down the playlist name and tracks.
 
 Things to keep in mind:
 
-- Each hard-coded array of track objects should contain a name, artist, album, and id property.
-- Consider using state to store information such as your search results array, allowing you to update the array in response to user inputs and other events.
-- Use JavaScript's map() method to iterate over arrays and render multiple components dynamically.
-- When returning the list of tracks, make sure to set a unique key attribute for each track. This will help React efficiently update the DOM when changes occur.
+- You can create a mock string containing the playlist name and tracks to test your code.
+- If you've set up your static components with the proper representation for the core components of the interface, you can pass the playlist tracks from the component responsible for the Playlist to the component responsible for the Tracklist.
+- Consider using state to store information such as the playlist name and playlist tracks.

@@ -1,3 +1,18 @@
 .Track {
   color:aliceblue;
+  border: 2px solid;
+  border-color: black;
+  text-align: left;
+  margin: 5px;
+  padding: 10px;
+}
+
+h4 {
+  margin: 0;
+}
+
+p {
+  margin: 0;
+  margin-top: 0.5em;
+  font-size: 0.75em;
 }

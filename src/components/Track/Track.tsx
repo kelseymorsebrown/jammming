@@ -10,7 +10,8 @@ function Track({ track }: AppProps) {
 
   return (
     <div className={styles.Track}>
-      <p>{track.name}</p>
+      <h4>{track.name}</h4>
+      <p>{track.artists[0].name}, {track.album.name}</p>
     </div>
   )
 }
