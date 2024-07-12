@@ -3,52 +3,15 @@ import styles from './Playlist.module.css';
 import { TrackData } from '../types'
 import Tracklist from '../Tracklist/Tracklist';
 
-type AppProps = {
+type PlaylistProps = {
+  playlistName: string;
+  onChangePlaylistName: (e: React.ChangeEvent<HTMLInputElement>) => void;
   tracks: TrackData[];
 };
 
-const mockTrack = {
-  "album": {
-    "href": "string",
-    "id": "2up3OPMp9Tb4dAKM2erWXQ",
-    "name": "Example Album",
-    "type": "album",
-    "uri": "spotify:album:2up3OPMp9Tb4dAKM2erWXQ",
-    "artists": [
-      {
-        "href": "string",
-        "id": "string",
-        "name": "Example Artist",
-        "type": "artist",
-        "uri": "string"
-      }
-    ]
-  },
-  "artists": [
-    {
-      "href": "string",
-      "id": "string",
-      "name": "Example Artist",
-      "type": "artist",
-      "uri": "string"
-    }
-  ],
-  "href": "string",
-  "id": "string",
-  "name": "Example Track Name",
-  "type": "track",
-  "uri": "string"
-}
+function Playlist({ playlistName, onChangePlaylistName, tracks }: PlaylistProps) {
 
-const mockTrackList = [
-  mockTrack,
-  mockTrack
-]
-
-function Playlist() {
-
-  const [playlistName, setPlaylistName] = useState('');
-  const handleSearchTermChange = ( e: React.ChangeEvent<HTMLInputElement> ) => setPlaylistName(e.currentTarget.value);
+  const hasTracklist = tracks.length > 0
 
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -58,14 +21,17 @@ function Playlist() {
 
   return (
     <div className={styles.Playlist}>
-      <input
-        type="text"
-        name="title"
-        id="title"
-        placeholder="Your Playlist"
-        onChange={handleSearchTermChange}
-      />
-      <Tracklist tracks={mockTrackList} />
+      <div className={styles.PlaylistName}>
+        <input
+          type="text"
+          name="title"
+          id="title"
+          value={playlistName}
+          placeholder="Your Playlist"
+          onChange={onChangePlaylistName}
+        />
+      </div>
+      {hasTracklist ? <Tracklist tracks={tracks} /> : <div />}
       <button onClick={handleSubmit}>Save To Spotify</button>
     </div>
   )
