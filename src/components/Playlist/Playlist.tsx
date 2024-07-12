@@ -1,15 +1,16 @@
 import React, { useState, MouseEvent } from 'react';
 import styles from './Playlist.module.css';
-import { TrackData } from '../types'
+import { TrackData, TrackButton } from '../types'
 import Tracklist from '../Tracklist/Tracklist';
 
 type PlaylistProps = {
   playlistName: string;
   onChangePlaylistName: (e: React.ChangeEvent<HTMLInputElement>) => void;
   tracks: TrackData[];
+  trackButton: TrackButton;
 };
 
-function Playlist({ playlistName, onChangePlaylistName, tracks }: PlaylistProps) {
+function Playlist({ playlistName, onChangePlaylistName, tracks, trackButton }: PlaylistProps) {
 
   const hasTracklist = tracks.length > 0
 
@@ -31,7 +32,7 @@ function Playlist({ playlistName, onChangePlaylistName, tracks }: PlaylistProps)
           onChange={onChangePlaylistName}
         />
       </div>
-      {hasTracklist ? <Tracklist tracks={tracks} /> : <div />}
+      {hasTracklist ? <Tracklist tracks={tracks} trackButton={trackButton}/> : <div />}
       <button onClick={handleSubmit}>Save To Spotify</button>
     </div>
   )

@@ -6,7 +6,7 @@ import SearchErrorMessage from '../SearchErrorMessage/SearchErrorMessage';
 import Playlist from '../Playlist/Playlist';
 
 // Import Types
-import { TrackData } from '../types'
+import { TrackData, TrackButton } from '../types'
 
 
 const mockTrack: TrackData = {
@@ -34,10 +34,37 @@ const mockTrack: TrackData = {
   "type": "track",
 }
 
+const mockTrack2: TrackData = {
+    "album": {
+      "id": "abgslw9425ew",
+      "name": "Foolbum",
+      "type": "album",
+      "artists": [
+        {
+          "id": "string",
+          "name": "Bartist",
+          "type": "artist",
+        }
+      ]
+    },
+    "artists": [
+      {
+        "id": "string",
+        "name": "Bartist",
+        "type": "artist",
+      }
+    ],
+    "id": "abcd",
+    "name": "Right On",
+    "type": "track",
+}
+
+
 const mockTrackList = [
   mockTrack,
   mockTrack,
-  mockTrack
+  mockTrack,
+  mockTrack2
 ]
 
 function App() {
@@ -51,14 +78,12 @@ function App() {
 
   const searchSpotify = async (searchTerm: string) => {
 
-
     if (!searchTerm) {
       setErrorMessage(`Please enter a search term.`);
     } else {
       const tracks = mockTrackList;
 
       setSearchResults(tracks);
-      setPlaylistTracks(tracks);
     }
 
     if (!searchResults) {
@@ -67,27 +92,59 @@ function App() {
 
   };
 
+  const addTrack = (track: TrackData) => {
+    const trackNotAdded = typeof playlistTracks.find((element) => element.id === track.id) === 'undefined'
+
+    if (trackNotAdded) {
+      setPlaylistTracks((prev) => [track, ...prev])
+    }
+  };
+
+  const removeTrack = (track: TrackData) => {
+    // const trackNotAdded = typeof playlistTracks.find((element) => element.id === track.id) === 'undefined'
+
+    // if (trackNotAdded) {
+    //   setPlaylistTracks((prev)=> [track, ...prev])
+    // }
+
+    return;
+  };
+
+  const addButton: TrackButton = {
+    label: '+',
+    callback: addTrack
+  }
+
+  const removeButton: TrackButton = {
+    label: '-',
+    callback: removeTrack
+  }
+
   return (
     <div className={styles.App}>
       <header className={styles.header}>
         <h1>Jammming</h1>
       </header>
       <main>
-                <SearchBar searchSpotify={searchSpotify} />
-
+        <SearchBar searchSpotify={searchSpotify} />
         <div className={styles.wrapper}>
-        <div className={styles.colLeft}>
-          {searchResults ? (
-            <SearchResults tracks={searchResults} />
-          ) : (
-            <SearchErrorMessage errorMessage={errorMessage} />
-          )
-          }
-        </div>
-        <div className={styles.colRight}>
-          <div className={styles.BufferRow} />
-          <Playlist playlistName={playlistName} onChangePlaylistName={handlePlaylistNameChange} tracks={playlistTracks} />
-        </div>
+          <div className={styles.colLeft}>
+            {searchResults ? (
+              <SearchResults tracks={searchResults} trackButton={addButton} />
+            ) : (
+              <SearchErrorMessage errorMessage={errorMessage} />
+            )
+            }
+          </div>
+          <div className={styles.colRight}>
+            <div className={styles.BufferRow} />
+            <Playlist
+              playlistName={playlistName}
+              onChangePlaylistName={handlePlaylistNameChange}
+              tracks={playlistTracks}
+              trackButton={removeButton}
+            />
+          </div>
         </div>
       </main>
     </div>

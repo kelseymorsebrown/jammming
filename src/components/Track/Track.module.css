@@ -1,18 +1,46 @@
 .Track {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   color:aliceblue;
   border: 2px solid;
   border-color: black;
-  text-align: left;
   margin: 5px;
   padding: 10px;
 }
 
-h4 {
-  margin: 0;
+.TrackInfo {
+  text-align: left;
+  h4 {
+    margin: 0;
+  }
+
+  p {
+    margin: 0;
+    margin-top: 0.5em;
+    font-size: 0.75em;
+  }
 }
 
-p {
-  margin: 0;
-  margin-top: 0.5em;
-  font-size: 0.75em;
+.TrackButton {
+  display: flex;
+  text-align: right;
+  align-items: center;
+
+  button {
+    border: 0px;
+    background-color: transparent;
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+
+  button:hover {
+    cursor: pointer;
+    color: grey;
+  }
+
+  button:active {
+    font-size: 1em;
+  }
+
 }

@@ -8,6 +8,10 @@ it('Displays the playlist submit button', async () => {
       playlistName=''
       onChangePlaylistName={() => { }}
       tracks={[]}
+      trackButton={{
+        label: '-',
+        callback: () => {}
+      }}
     />
   );
 
@@ -21,6 +25,10 @@ it('Displays the placeholder playlist name', async () => {
       playlistName=''
       onChangePlaylistName={() => { }}
       tracks={[]}
+      trackButton={{
+        label: '-',
+        callback: () => {}
+      }}
     />
   );
 
