@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import styles from './SearchBar.module.css';
 
-type AppProps = {
+type SearchBarProps = {
   searchSpotify: Function;
 };
-function SearchBar({ searchSpotify }: AppProps) {
+function SearchBar({ searchSpotify }: SearchBarProps) {
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleSearchTermChange = ( e: React.FormEvent<HTMLInputElement> ) => setSearchTerm(e.currentTarget.value);
@@ -27,7 +27,6 @@ function SearchBar({ searchSpotify }: AppProps) {
       />
         <input type="submit" value="Search" onClick={handleSubmit} />
       </form>
-      <p>{ searchTerm }</p>
     </div>
   )
 }

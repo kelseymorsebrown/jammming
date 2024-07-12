@@ -5,14 +5,16 @@ import Tracklist from '../Tracklist/Tracklist';
 // Import Types
 import { TrackData } from '../types'
 
-type AppProps = {
+type SearchResultsProps = {
   tracks: TrackData[];
 };
-function SearchResults({tracks}: AppProps) {
+function SearchResults({tracks}: SearchResultsProps) {
 
   return (
     <div className={styles.SearchResults}>
-      <h2>Results</h2>
+      <div className={styles.subhead}>
+        <h2>Results</h2>
+      </div>
       <Tracklist tracks={tracks} />
     </div>
   )

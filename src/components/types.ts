@@ -1,5 +1,6 @@
 export interface TrackData {
   name: string;
+  type: string;
   artists: Artist[];
   album: Album;
   id: string;

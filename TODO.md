@@ -1,11 +1,9 @@
 # Next Step
 
-Your Jammming web app should allow the user to customize their playlist title and tracks. When a user creates a playlist, your app should display the playlist name and tracks from the playlist.
+Your Jammming web app should allow users to add songs from the search results to their custom playlist. To achieve this, implement a method that adds a selected song from the search results track list to the user's custom playlist. The method should be triggered when the user clicks an "add" button displayed next to each track in the search results list.
 
-Create a unidirectional data flow from your root component to relevant children components. This data flow should pass down the playlist name and tracks.
+You will want to create a method that can accept a track as an argument, and check if the passed-in track is in the playlist already — there is a unique property of each track that can help you with this step, and if the song is new, add the song to the playlist.
 
-Things to keep in mind:
+The "add" button can be anything. For example, a + sign provides a visual aid of "adding" a song. An event listener can wait for the button to be clicked and trigger the method that adds the track to the playlist.
 
-- You can create a mock string containing the playlist name and tracks to test your code.
-- If you've set up your static components with the proper representation for the core components of the interface, you can pass the playlist tracks from the component responsible for the Playlist to the component responsible for the Tracklist.
-- Consider using state to store information such as the playlist name and playlist tracks.
+Don't forget to render the playlist component with the updated playlist to reflect the changes made by adding a new track!

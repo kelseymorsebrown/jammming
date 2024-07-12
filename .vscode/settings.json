@@ -4,5 +4,9 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "prettier.requireConfig": true,
-  "prettier.enable": true
+  "prettier.enable": true,
+  "cSpell.words": [
+    "Jammming",
+    "Tracklist"
+  ]
 }
