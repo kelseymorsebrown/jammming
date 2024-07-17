@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import Track from './Track';
+import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
+import Track from './Track';
 
 const mockTrack = {
     "album": {
@@ -53,4 +54,26 @@ it('Displays the album name and artist', async () => {
   );
 
   expect(screen.getByText('Bartist, Foolbum')).toBeInTheDocument();
+})
+
+it('should call the callback function when clicked', async () => {
+  const handleClick = jest.fn();
+  
+  render(
+    <Track
+      track={mockTrack}
+      trackButton={{
+        label: '+',
+        callback: handleClick
+      }}
+    />
+  );
+
+  const button = screen.getByRole("button");
+
+  await userEvent.click(button);
+
+  expect(handleClick).toHaveBeenCalledTimes(1);
+  expect(handleClick).toHaveBeenCalledWith(mockTrack);
+
 })
