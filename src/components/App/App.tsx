@@ -96,16 +96,12 @@ function App() {
     const trackNotAdded = typeof playlistTracks.find((element) => element.id === track.id) === 'undefined'
 
     if (trackNotAdded) {
-      setPlaylistTracks((prev) => [track, ...prev])
+      setPlaylistTracks((prev) => [...prev, track])
     }
   };
 
   const removeTrack = (track: TrackData) => {
-    // const trackNotAdded = typeof playlistTracks.find((element) => element.id === track.id) === 'undefined'
-
-    // if (trackNotAdded) {
-    //   setPlaylistTracks((prev)=> [track, ...prev])
-    // }
+    setPlaylistTracks(playlistTracks.filter((element) => element.id !== track.id));
 
     return;
   };

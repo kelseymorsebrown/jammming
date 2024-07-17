@@ -10,9 +10,7 @@ type AppProps = {
 function Track({ track, trackButton }: AppProps) {
 
   const handleClick = () => {
-    if (trackButton.label === '+') {
-      trackButton.callback(track)
-    }
+    trackButton.callback(track)
   }
 
   return (
