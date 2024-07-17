@@ -18,3 +18,8 @@ export interface Album {
   type: string;
   id: string;
 }
+
+export interface TrackButton {
+  label: string;
+  callback: (track: TrackData) => void
+}

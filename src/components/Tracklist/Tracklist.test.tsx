@@ -57,6 +57,10 @@ it('Displays the first track', async () => {
   render(
     <Tracklist
       tracks={mockTrackList}
+      trackButton={{
+        label: '-',
+        callback: () => {}
+      }}
     />
   );
 
@@ -66,6 +70,10 @@ it('Displays the second track', async () => {
   render(
     <Tracklist
       tracks={mockTrackList}
+      trackButton={{
+        label: '-',
+        callback: () => {}
+      }}
     />
   );
 

@@ -31,6 +31,10 @@ it('Displays the track name', async () => {
   render(
     <Track
       track={mockTrack}
+      trackButton={{
+        label: '+',
+        callback: () => {}
+      }}
     />
   );
 
@@ -41,6 +45,10 @@ it('Displays the album name and artist', async () => {
   render(
     <Track
       track={mockTrack}
+      trackButton={{
+        label: '+',
+        callback: () => {}
+      }}
     />
   );
 

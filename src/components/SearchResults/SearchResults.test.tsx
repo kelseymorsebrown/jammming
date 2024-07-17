@@ -6,6 +6,10 @@ it('Displays the search results header', async () => {
   render(
     <SearchResults
       tracks={[]}
+      trackButton={{
+        label: '+',
+        callback: () => {}
+      }}
     />
   );
 
