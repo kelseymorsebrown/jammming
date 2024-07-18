@@ -4,37 +4,38 @@ import '@testing-library/jest-dom';
 import Track from './Track';
 
 const mockTrack = {
-    "album": {
-      "id": "abgslw9425ew",
-      "name": "Foolbum",
-      "type": "album",
-      "artists": [
-        {
-          "id": "string",
-          "name": "Bartist",
-          "type": "artist",
-        }
-      ]
-    },
+  "album": {
+    "id": "abgslw9425ew",
+    "name": "Foolbum",
+    "type": "album",
     "artists": [
       {
         "id": "string",
         "name": "Bartist",
         "type": "artist",
       }
-    ],
-    "id": "string",
-    "name": "Right On",
-    "type": "track",
+    ]
+  },
+  "artists": [
+    {
+      "id": "string",
+      "name": "Bartist",
+      "type": "artist",
+    }
+  ],
+  "id": "string",
+  "uri": "spotify:track:string",
+  "name": "Right On",
+  "type": "track",
 }
-  
+
 it('Displays the track name', async () => {
   render(
     <Track
       track={mockTrack}
       trackButton={{
         label: '+',
-        callback: () => {}
+        callback: () => { }
       }}
     />
   );
@@ -48,7 +49,7 @@ it('Displays the album name and artist', async () => {
       track={mockTrack}
       trackButton={{
         label: '+',
-        callback: () => {}
+        callback: () => { }
       }}
     />
   );
@@ -58,7 +59,7 @@ it('Displays the album name and artist', async () => {
 
 it('should call the callback function when clicked', async () => {
   const handleClick = jest.fn();
-  
+
   render(
     <Track
       track={mockTrack}

@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Track.module.css';
-import { TrackData, TrackButton } from '../types'
+import { TrackData, TrackButton } from '../../types'
 
 type AppProps = {
   track: TrackData;
