@@ -1,11 +1,11 @@
 # Next Step
 
-Along with adding, your Jammming web app should allow users to remove songs from their playlists.
+Implement Saving the Playlist to a User's Account
 
-This function should trigger when the user presses the "remove" button next to a displayed track. To achieve this, implement a method that removes a selected song from the user's custom playlist.
+Jammming's main feature is allowing users to export their created playlist and save it to their personal Spotify account. Implement a feature to save a user's playlist to their Spotify account and reset the existing playlist on the web app.
 
-To complete this step, create a method that can accept a track as an argument, and check if the passed-in track is in the playlist — there is a unique property of each track that can help you with this step, and if the song exists in the playlist, remove it.
+As a part of this goal, you should access a track property named uri. Spotify uses this field to reference tracks in the Spotify library. You should create an array containing the uri of each track in the playlist.
 
-The "remove" button can be anything. For example, a - sign provides a visual aid of "subtracting" or "removing" a song. An event listener can wait for the button to be clicked and trigger the method that removes the track from the playlist.
+At this point, you don't need to interact with the Spotify API quite yet. Use mock data to test your implementation.
 
-Don't forget to render the playlist component with the updated playlist to reflect the changes made by removing the track!
+It's important to familiarize yourself with the Spotify API documentation to gain a clear understanding of how Spotify's uris works. For testing purposes, you can create a hardcoded array of uri values. To obtain a Spotify uri, simply right-click (on Windows) or ctrl-click (on Mac) on a song's name.

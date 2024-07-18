@@ -4,6 +4,7 @@ export interface TrackData {
   artists: Artist[];
   album: Album;
   id: string;
+  uri: string;
 }
 
 export interface Artist {
@@ -21,5 +22,5 @@ export interface Album {
 
 export interface TrackButton {
   label: string;
-  callback: (track: TrackData) => void
+  callback: (track: TrackData) => void;
 }
