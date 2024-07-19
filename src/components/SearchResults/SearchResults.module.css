@@ -1,5 +1,5 @@
 h2 {
-  color:aliceblue;
+  color: aliceblue;
   font-size: calc(10px + 1.5vmin);
   margin: 0;
 }
@@ -15,5 +15,5 @@ h2 {
   border-left: none;
   border-right: none;
   border-bottom-width: 2px;
-  border-color:  rgba(0, 0, 0, 0);
+  border-color: rgba(0, 0, 0, 0);
 }

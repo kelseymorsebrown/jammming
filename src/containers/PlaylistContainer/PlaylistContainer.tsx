@@ -1,41 +1,26 @@
-import React, { useState, useEffect, SetStateAction, Dispatch } from 'react';
-import { TrackData, TrackButton } from '../../types';
+import React, { SetStateAction, Dispatch } from 'react';
+import { TrackData, TrackButton, PlaylistContextType } from '../../types';
 import Playlist from '../../components/Playlist/Playlist';
+import styles from './PlaylistContainer.module.css';
+import { PlaylistContext } from '../../context/PlaylistContext';
 
-type PlaylistContainerProps = {
-  playlistTracks: TrackData[];
-  setPlaylistTracks: Dispatch<SetStateAction<TrackData[]>>;
-  trackButton: TrackButton;
-};
-
-function PlaylistContainer({
-  playlistTracks,
-  setPlaylistTracks,
-  trackButton,
-}: PlaylistContainerProps) {
-  const [playlistName, setPlaylistName] = useState('');
-  const [playlistURIs, setPlaylistURIs] = useState<string[]>([]);
-  const [hasTracklist, setHasTracklist] = useState(false);
+function PlaylistContainer() {
+  const {
+    playlistTracks,
+    playlistName,
+    setPlaylistName,
+    hasTracklist,
+    removeTrack,
+    setPlaylistURIs,
+  } = React.useContext(PlaylistContext) as PlaylistContextType;
 
   const handlePlaylistNameChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setPlaylistName(e.currentTarget.value);
 
-  useEffect(() => {
-    if (playlistTracks.length > 0) {
-      setHasTracklist(true);
-    } else {
-      setHasTracklist(false);
-    }
-  }, [playlistTracks]);
-
-  useEffect(() => {
-    if (playlistURIs.length > 0) {
-      console.log(playlistName);
-      console.log(playlistURIs);
-      setPlaylistTracks([]);
-      setPlaylistName('');
-    }
-  }, [playlistURIs]);
+  const removeButton: TrackButton = {
+    label: '-',
+    callback: removeTrack,
+  };
 
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -46,16 +31,17 @@ function PlaylistContainer({
   };
 
   return (
-    <>
+    <div className={styles.colRight}>
+      <div className={styles.BufferRow} />
       <Playlist
         playlistName={playlistName}
         onChangePlaylistName={handlePlaylistNameChange}
         onSubmit={handleSubmit}
         hasTracks={hasTracklist}
         tracks={playlistTracks}
-        trackButton={trackButton}
+        trackButton={removeButton}
       />
-    </>
+    </div>
   );
 }
 

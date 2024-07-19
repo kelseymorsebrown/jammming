@@ -1,14 +1,24 @@
-import { waitFor, render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
-import PlaylistContainer from './PlaylistContainer'
-import '@testing-library/jest-dom'
+import { waitFor, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import PlaylistContainer from './PlaylistContainer';
+import PlaylistProvider from '../../context/PlaylistContext';
+import '@testing-library/jest-dom';
 
-const mockTrackList = [
-  {
-    album: {
-      id: '2up3OPMp9Tb4dAKM2erWXQ',
-      name: 'Example Album',
-      type: 'album',
+describe('PlaylistContainer', () => {
+  const mockTrackList = [
+    {
+      album: {
+        id: '2up3OPMp9Tb4dAKM2erWXQ',
+        name: 'Example Album',
+        type: 'album',
+        artists: [
+          {
+            id: 'string',
+            name: 'Example Artist',
+            type: 'artist',
+          },
+        ],
+      },
       artists: [
         {
           id: 'string',
@@ -16,24 +26,24 @@ const mockTrackList = [
           type: 'artist',
         },
       ],
+      id: 'string',
+      uri: 'spotify:track:string',
+      name: 'Example Track Name',
+      type: 'track',
     },
-    artists: [
-      {
-        id: 'string',
-        name: 'Example Artist',
-        type: 'artist',
+    {
+      album: {
+        id: 'abgslw9425ew',
+        name: 'Foolbum',
+        type: 'album',
+        artists: [
+          {
+            id: 'string',
+            name: 'Bartist',
+            type: 'artist',
+          },
+        ],
       },
-    ],
-    id: 'string',
-    uri: 'spotify:track:string',
-    name: 'Example Track Name',
-    type: 'track',
-  },
-  {
-    album: {
-      id: 'abgslw9425ew',
-      name: 'Foolbum',
-      type: 'album',
       artists: [
         {
           id: 'string',
@@ -41,116 +51,110 @@ const mockTrackList = [
           type: 'artist',
         },
       ],
+      id: 'abcd',
+      uri: 'spotify:track:abcd',
+      name: 'Right On',
+      type: 'track',
     },
-    artists: [
-      {
-        id: 'string',
-        name: 'Bartist',
-        type: 'artist',
-      },
-    ],
-    id: 'abcd',
-    uri: 'spotify:track:abcd',
-    name: 'Right On',
-    type: 'track',
-  },
-]
+  ];
 
-const mockPlaylistName = 'Custom Playlist Title'
+  const mockPlaylistName = 'Custom Playlist Title';
 
-it('playlist name should update with user input', async () => {
-  const handleChange = jest.fn()
+  it('updates playlist name with user input', async () => {
+    const handleChange = jest.fn();
 
-  render(
-    <PlaylistContainer
-      setPlaylistTracks={() => {}}
-      playlistTracks={[]}
-      trackButton={{
-        label: '-',
-        callback: () => {},
-      }}
-    />
-  )
+    const plInit = {
+      tracks: [],
+      name: '',
+    };
 
-  const input = screen.getByTestId('playlist-name')
+    render(
+      <PlaylistProvider initialValues={plInit}>
+        <PlaylistContainer />
+      </PlaylistProvider>
+    );
 
-  expect(input?.getAttribute('value')).toEqual('')
+    const input = screen.getByTestId('playlist-name');
 
-  userEvent.type(input, mockPlaylistName)
+    expect(input?.getAttribute('value')).toEqual('');
 
-  await waitFor(() => {
-    const playlistName = screen
-      .getByTestId('playlist-name')
-      ?.getAttribute('value')
-    expect(playlistName).toEqual(mockPlaylistName)
-    expect(handleChange).toHaveBeenCalled
-  })
-})
+    userEvent.type(input, mockPlaylistName);
 
-it('handleSubmit is called when playlist is submitted', async () => {
-  const handleSubmit = jest.fn()
+    await waitFor(() => {
+      const playlistName = screen
+        .getByTestId('playlist-name')
+        ?.getAttribute('value');
+      expect(playlistName).toEqual(mockPlaylistName);
+      expect(handleChange).toHaveBeenCalled;
+    });
+  });
 
-  render(
-    <PlaylistContainer
-      setPlaylistTracks={() => {}}
-      playlistTracks={mockTrackList}
-      trackButton={{
-        label: '-',
-        callback: () => {},
-      }}
-    />
-  )
+  it('calls handleSubmit when playlist is submitted', async () => {
+    const handleSubmit = jest.fn();
 
-  const button = screen.getByTestId('save-playlist-button')
-  userEvent.click(button)
+    const plInit = {
+      tracks: mockTrackList,
+      name: '',
+    };
 
-  await waitFor(() => {
-    expect(handleSubmit).toHaveBeenCalled
-  })
-})
+    render(
+      <PlaylistProvider initialValues={plInit}>
+        <PlaylistContainer />
+      </PlaylistProvider>
+    );
 
-it('playlist name clears when playlist is submitted', async () => {
-  render(
-    <PlaylistContainer
-      setPlaylistTracks={() => {}}
-      playlistTracks={mockTrackList}
-      trackButton={{
-        label: '-',
-        callback: () => {},
-      }}
-    />
-  )
+    const button = screen.getByTestId('save-playlist-button');
+    userEvent.click(button);
 
-  const input = screen.getByTestId('playlist-name')
-  const button = screen.getByTestId('save-playlist-button')
+    await waitFor(() => {
+      expect(handleSubmit).toHaveBeenCalled;
+    });
+  });
 
-  userEvent.type(input, mockPlaylistName)
-  userEvent.click(button)
+  it('clears the playlist name when playlist is submitted', async () => {
+    const plInit = {
+      tracks: mockTrackList,
+      name: '',
+    };
 
-  await waitFor(() => {
-    const playlistName = screen.queryByDisplayValue(mockPlaylistName)
-    expect(playlistName).toBeNull()
-  })
-})
+    render(
+      <PlaylistProvider initialValues={plInit}>
+        <PlaylistContainer />
+      </PlaylistProvider>
+    );
 
-it('setPlaylistTracks is called with empty array when playlist is submitted', async () => {
-  const setPlaylistTracks = jest.fn()
+    const input = screen.getByTestId('playlist-name');
+    const button = screen.getByTestId('save-playlist-button');
 
-  render(
-    <PlaylistContainer
-      setPlaylistTracks={setPlaylistTracks}
-      playlistTracks={mockTrackList}
-      trackButton={{
-        label: '-',
-        callback: () => {},
-      }}
-    />
-  )
+    userEvent.type(input, mockPlaylistName);
+    userEvent.click(button);
 
-  const button = screen.getByTestId('save-playlist-button')
-  userEvent.click(button)
+    await waitFor(() => {
+      const playlistName = screen.queryByDisplayValue(mockPlaylistName);
+      expect(playlistName).toBeNull();
+    });
+  });
 
-  await waitFor(() => {
-    expect(setPlaylistTracks).toHaveBeenCalledWith([])
-  })
-})
+  it('clears all the playlist tracks when playlist is submitted', async () => {
+    const plInit = {
+      tracks: mockTrackList,
+      name: '',
+    };
+
+    render(
+      <PlaylistProvider initialValues={plInit}>
+        <PlaylistContainer />
+      </PlaylistProvider>
+    );
+
+    expect(screen.queryByTestId(`track-${mockTrackList[0].id}`))
+      .toBeInTheDocument;
+
+    const button = screen.getByTestId('save-playlist-button');
+    userEvent.click(button);
+
+    await waitFor(() => {
+      expect(screen.queryByTestId(`track-${mockTrackList[0].id}`)).toBeNull;
+    });
+  });
+});

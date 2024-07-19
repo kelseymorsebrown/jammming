@@ -8,7 +8,7 @@ type Props = {
 
 function SearchErrorMessage({ errorMessage }: Props) {
   return (
-    <div className={styles.searchErrorMessage}>
+    <div className={styles.searchErrorMessage} data-testid="search-error">
       {errorMessage}
     </div>
   );
