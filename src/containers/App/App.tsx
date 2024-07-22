@@ -23,27 +23,29 @@ function App() {
   const userInitialValues = {
     isLoggedIn: false,
     displayName: null,
+    accessToken: null,
+    expiresAt: null,
   };
 
   return (
     <div className={styles.App}>
-      <header className={styles.header}>
-        <h1>Jammming</h1>
-        <UserProvider initialValues={userInitialValues}>
+      <UserProvider initialValues={userInitialValues}>
+        <header className={styles.header}>
+          <h1>Jammming</h1>
           <LoginContainer />
-        </UserProvider>
-      </header>
-      <main>
-        <SearchProvider initialValues={searchResultsInitialValues}>
-          <PlaylistProvider initialValues={playlistInitialValues}>
-            <SearchBar />
-            <div className={styles.wrapper}>
-              <SearchResultsContainer />
-              <PlaylistContainer />
-            </div>
-          </PlaylistProvider>
-        </SearchProvider>
-      </main>
+        </header>
+        <main>
+          <SearchProvider initialValues={searchResultsInitialValues}>
+            <PlaylistProvider initialValues={playlistInitialValues}>
+              <SearchBar />
+              <div className={styles.wrapper}>
+                <SearchResultsContainer />
+                <PlaylistContainer />
+              </div>
+            </PlaylistProvider>
+          </SearchProvider>
+        </main>
+      </UserProvider>
     </div>
   );
 }

@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import spotifyAPI from '../../utils/spotifyAPI';
 import { UserContext } from '../../context/UserContext';
 import { UserContextType } from '../../utils/types';
 import styles from './LoginContainer.module.css';
 
 function LoginContainer() {
-  const { isLoggedIn, setIsLoggedIn, displayName, setDisplayName } =
-    React.useContext(UserContext) as UserContextType;
+  const {
+    isLoggedIn,
+    setIsLoggedIn,
+    displayName,
+    setDisplayName,
+    accessToken,
+    setAccessToken,
+    expiresAt,
+    setExpiresAt,
+  } = React.useContext(UserContext) as UserContextType;
 
   const stateKey = 'spotify_auth_state';
 
@@ -39,12 +47,15 @@ function LoginContainer() {
   const params = getHashParams();
   const access_token = params.access_token;
   const state = params.state;
+  const expires_in = Number(params.expires_in);
   const storedState = localStorage.getItem(stateKey);
 
   if (access_token && (state == null || state !== storedState)) {
-    alert('There was an error during the authentication');
+    console.log('There was an error during the authentication');
   } else {
-    if (access_token) {
+    if (access_token && expires_in) {
+      setAccessToken(access_token);
+      setExpiresAt(getExpiresAt(expires_in));
       getDisplayName();
     }
   }
@@ -53,7 +64,6 @@ function LoginContainer() {
     const displayName = await spotifyAPI
       .getUser(stateKey, access_token)
       .then((jsonResponse) => {
-        console.log(jsonResponse.display_name);
         return jsonResponse.display_name;
       });
 
@@ -63,8 +73,28 @@ function LoginContainer() {
     }
   }
 
-  if (!displayName && isLoggedIn) {
+  function getExpiresAt(expiresIn: number) {
+    return Date.now() + expiresIn * 1000;
+  }
+
+  useEffect(() => {
+    if (accessToken && expiresAt) {
+      const timeRemaining = expiresAt - Date.now();
+      const timeout = setTimeout(() => {
+        alert('Authentication timeout, please log in again');
+        setAccessToken(null);
+        setIsLoggedIn(false);
+        setExpiresAt(null);
+      }, timeRemaining);
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
+  }, [accessToken]);
+
+  if (accessToken && isLoggedIn) {
     localStorage.removeItem(stateKey);
+    window.history.pushState({}, document.title, '/');
   }
 
   return (

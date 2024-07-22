@@ -49,6 +49,10 @@ export interface UserContextType {
   setIsLoggedIn: (value: React.SetStateAction<boolean>) => void;
   displayName: string | null;
   setDisplayName: (value: React.SetStateAction<string | null>) => void;
+  accessToken: string | null;
+  setAccessToken: (value: React.SetStateAction<string | null>) => void;
+  expiresAt: number | null;
+  setExpiresAt: (value: React.SetStateAction<number | null>) => void;
 }
 
 export interface SearchInitialValues {
@@ -65,4 +69,6 @@ export interface PlaylistInitialValues {
 export interface UserInitialValues {
   isLoggedIn: boolean;
   displayName: string | null;
+  accessToken: string | null;
+  expiresAt: number | null;
 }

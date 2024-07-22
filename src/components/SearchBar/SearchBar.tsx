@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import styles from './SearchBar.module.css';
 import { SearchContext } from '../../context/SearchContext';
-import { SearchContextType } from '../../utils/types';
+import { SearchContextType, UserContextType } from '../../utils/types';
+import { UserContext } from '../../context/UserContext';
 
 function SearchBar() {
   const { searchSpotify, setSearchTerm, searchTerm } = React.useContext(
     SearchContext
   ) as SearchContextType;
+
+  const { accessToken } = React.useContext(UserContext) as UserContextType;
 
   const handleSearchTermChange = (e: React.FormEvent<HTMLInputElement>) =>
     setSearchTerm(e.currentTarget.value);
@@ -15,6 +18,7 @@ function SearchBar() {
     event.preventDefault();
 
     searchSpotify(searchTerm);
+    console.log(accessToken);
   };
 
   return (
