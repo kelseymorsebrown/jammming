@@ -10,7 +10,7 @@ import {
   TrackButton,
   SearchContextType,
   PlaylistContextType,
-} from '../../types';
+} from '../../utils/types';
 
 function SearchResultsContainer() {
   const { errorMessage, searchResults } = React.useContext(

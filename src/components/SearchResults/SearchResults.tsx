@@ -3,7 +3,7 @@ import styles from './SearchResults.module.css';
 import Tracklist from '../Tracklist/Tracklist';
 
 // Import Types
-import { TrackData, TrackButton } from '../../types';
+import { TrackData, TrackButton } from '../../utils/types';
 
 type SearchResultsProps = {
   tracks: TrackData[];

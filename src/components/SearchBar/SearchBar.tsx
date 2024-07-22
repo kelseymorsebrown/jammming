@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './SearchBar.module.css';
 import { SearchContext } from '../../context/SearchContext';
-import { SearchContextType } from '../../types';
+import { SearchContextType } from '../../utils/types';
 
 function SearchBar() {
   const { searchSpotify, setSearchTerm, searchTerm } = React.useContext(

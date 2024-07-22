@@ -1,5 +1,9 @@
 import React, { createContext, useState } from 'react';
-import { TrackData, SearchContextType, SearchInitialValues } from '../types';
+import {
+  TrackData,
+  SearchContextType,
+  SearchInitialValues,
+} from '../utils/types';
 
 const mockTrack: TrackData = {
   album: {

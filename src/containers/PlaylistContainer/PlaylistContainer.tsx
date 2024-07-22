@@ -1,5 +1,5 @@
-import React, { SetStateAction, Dispatch } from 'react';
-import { TrackData, TrackButton, PlaylistContextType } from '../../types';
+import React from 'react';
+import { TrackButton, PlaylistContextType } from '../../utils/types';
 import Playlist from '../../components/Playlist/Playlist';
 import styles from './PlaylistContainer.module.css';
 import { PlaylistContext } from '../../context/PlaylistContext';

@@ -44,6 +44,13 @@ export interface PlaylistContextType {
   setPlaylistURIs: (value: React.SetStateAction<string[]>) => void;
 }
 
+export interface UserContextType {
+  isLoggedIn: boolean;
+  setIsLoggedIn: (value: React.SetStateAction<boolean>) => void;
+  displayName: string | null;
+  setDisplayName: (value: React.SetStateAction<string | null>) => void;
+}
+
 export interface SearchInitialValues {
   results: TrackData[] | null;
   term: string;
@@ -53,4 +60,9 @@ export interface SearchInitialValues {
 export interface PlaylistInitialValues {
   tracks: TrackData[];
   name: string;
+}
+
+export interface UserInitialValues {
+  isLoggedIn: boolean;
+  displayName: string | null;
 }

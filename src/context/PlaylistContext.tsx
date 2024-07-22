@@ -3,7 +3,7 @@ import {
   TrackData,
   PlaylistContextType,
   PlaylistInitialValues,
-} from '../types';
+} from '../utils/types';
 
 export const PlaylistContext = createContext<PlaylistContextType | null>(null);
 
