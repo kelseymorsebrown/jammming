@@ -33,10 +33,10 @@ const spotifyAPI = {
 
     window.location.assign(url);
   },
-  async getUser(stateKey: string, access_token: string) {
+  async getUser(stateKey: string, accessToken: string | null) {
     return fetch('https://api.spotify.com/v1/me', {
       headers: {
-        Authorization: 'Bearer ' + access_token,
+        Authorization: 'Bearer ' + accessToken,
       },
     }).then((response) => {
       if (!response.ok) {

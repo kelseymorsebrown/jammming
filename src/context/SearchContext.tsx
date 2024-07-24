@@ -73,7 +73,17 @@ const SearchProvider: React.FC<{
   );
   const [searchTerm, setSearchTerm] = useState(initialValues.term);
 
-  const searchSpotify = async (searchTerm: string) => {
+  const searchSpotify = async (
+    searchTerm: string,
+    accessToken: string | null
+  ) => {
+    if (!accessToken) {
+      setErrorMessage(
+        `Please log in to Spotify and authorize this application.`
+      );
+      setSearchResults(null);
+      return;
+    }
     if (searchTerm === '') {
       setErrorMessage(`Please enter a search term.`);
       setSearchResults(null);

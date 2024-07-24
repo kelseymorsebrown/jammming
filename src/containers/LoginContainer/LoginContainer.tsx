@@ -44,25 +44,57 @@ function LoginContainer() {
     return hashParams;
   }
 
-  const params = getHashParams();
-  const access_token = params.access_token;
-  const state = params.state;
-  const expires_in = Number(params.expires_in);
-  const storedState = localStorage.getItem(stateKey);
+  /**
+   * Obtains parameters from the hash of the URL
+   */
+  function getQueryParams() {
+    type QueryParams = {
+      [key: string]: string;
+    };
 
-  if (access_token && (state == null || state !== storedState)) {
-    console.log('There was an error during the authentication');
-  } else {
-    if (access_token && expires_in) {
+    let queryParams: QueryParams = {};
+
+    let e;
+    const r = /([^&;=]+)=?([^&;]*)/g;
+    const q = window.location.search.substring(1);
+
+    while ((e = r.exec(q))) {
+      queryParams[e[1]] = decodeURIComponent(e[2]);
+    }
+    return queryParams;
+  }
+
+  useEffect(() => {
+    const params =
+      JSON.stringify(getHashParams()) === '{}'
+        ? getQueryParams()
+        : getHashParams();
+    const access_token = params.access_token;
+    const error = params.error;
+    const state = params.state;
+    const expires_in = Number(params.expires_in);
+    const storedState = localStorage.getItem(stateKey);
+
+    if (error) {
+      console.log(`There was an error during the authentication: ${error}`);
+    } else if (access_token && (state == null || state !== storedState)) {
+      console.log('There was an error during the authentication');
+    } else if (access_token && expires_in) {
+      console.log('Authentication successful');
       setAccessToken(access_token);
       setExpiresAt(getExpiresAt(expires_in));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (accessToken && expiresAt) {
       getDisplayName();
     }
-  }
+  }, [accessToken, expiresAt]);
 
   async function getDisplayName() {
     const displayName = await spotifyAPI
-      .getUser(stateKey, access_token)
+      .getUser(stateKey, accessToken)
       .then((jsonResponse) => {
         return jsonResponse.display_name;
       });

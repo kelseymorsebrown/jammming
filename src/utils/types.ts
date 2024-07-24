@@ -30,7 +30,10 @@ export interface SearchContextType {
   searchResults: TrackData[] | null;
   errorMessage: string | null;
   setSearchTerm: (value: React.SetStateAction<string>) => void;
-  searchSpotify: (searchTerm: string) => Promise<void>;
+  searchSpotify: (
+    searchTerm: string,
+    accessToken: string | null
+  ) => Promise<void>;
 }
 
 export interface PlaylistContextType {

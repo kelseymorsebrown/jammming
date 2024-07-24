@@ -3,6 +3,7 @@ import styles from './SearchBar.module.css';
 import { SearchContext } from '../../context/SearchContext';
 import { SearchContextType, UserContextType } from '../../utils/types';
 import { UserContext } from '../../context/UserContext';
+import { access } from 'fs';
 
 function SearchBar() {
   const { searchSpotify, setSearchTerm, searchTerm } = React.useContext(
@@ -17,7 +18,7 @@ function SearchBar() {
   const handleSubmit = (event: React.MouseEvent<HTMLInputElement>) => {
     event.preventDefault();
 
-    searchSpotify(searchTerm);
+    searchSpotify(searchTerm, accessToken);
     console.log(accessToken);
   };
 
