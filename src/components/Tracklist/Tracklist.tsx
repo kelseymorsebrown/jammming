@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Tracklist.module.css';
 import Track from '../Track/Track';
-import { TrackData, TrackButton } from '../../types';
+import { TrackData, TrackButton } from '../../utils/types';
 
 type TracklistProps = {
   tracks: TrackData[];

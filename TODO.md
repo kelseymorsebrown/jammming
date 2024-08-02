@@ -2,10 +2,14 @@
 
 Implement Saving the Playlist to a User's Account
 
-Jammming's main feature is allowing users to export their created playlist and save it to their personal Spotify account. Implement a feature to save a user's playlist to their Spotify account and reset the existing playlist on the web app.
+To use the Spotify API with Jammming, you need to get a user’s Spotify access token to make Spotify API requests.
 
-As a part of this goal, you should access a track property named uri. Spotify uses this field to reference tracks in the Spotify library. You should create an array containing the uri of each track in the playlist.
+Create a JavaScript module that will handle the logic for getting an access token and using it to make requests. The method should have a way to get a user’s access token and store it.
 
-At this point, you don't need to interact with the Spotify API quite yet. Use mock data to test your implementation.
+You can use the [Implicit Grant Flow](https://developer.spotify.com/documentation/general/guides/authorization/) to set up a user’s account and make requests. The implicit grant flow returns a user’s token in the URL.
 
-It's important to familiarize yourself with the Spotify API documentation to gain a clear understanding of how Spotify's uris works. For testing purposes, you can create a hardcoded array of uri values. To obtain a Spotify uri, simply right-click (on Windows) or ctrl-click (on Mac) on a song's name.
+From the URL, you should extract the access token values and set them up in your app. You should also set up a variable for the expiration time and configure the access token to expire at the appropriate time.
+
+Remember to clear parameters from the URL to avoid issues with expired access tokens.
+
+You may encounter errors if the access token is not in the URL. It can happen if the user has not logged in and granted your app access to their Spotify account yet. Handle these errors appropriately.

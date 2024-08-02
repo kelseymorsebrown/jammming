@@ -1,6 +1,6 @@
 import React, { useState, MouseEvent } from 'react';
 import styles from './Playlist.module.css';
-import { TrackData, TrackButton } from '../../types';
+import { TrackData, TrackButton } from '../../utils/types';
 import Tracklist from '../Tracklist/Tracklist';
 
 type PlaylistProps = {
