@@ -34,11 +34,11 @@ function App() {
           <h1>Jammming</h1>
           <LoginContainer />
         </header>
-        <main>
+        <main className={styles.main}>
           <SearchProvider initialValues={searchResultsInitialValues}>
             <PlaylistProvider initialValues={playlistInitialValues}>
               <SearchBar />
-              <div className={styles.wrapper}>
+              <div className={styles.ResultsWrapper}>
                 <SearchResultsContainer />
                 <PlaylistContainer />
               </div>
@@ -46,6 +46,9 @@ function App() {
           </SearchProvider>
         </main>
       </UserProvider>
+      <footer className={styles.footer}>
+        <p>Kelsey Morse-Brown 2024</p>
+      </footer>
     </div>
   );
 }

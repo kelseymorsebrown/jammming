@@ -43,6 +43,8 @@ function SearchBar() {
           id="term"
           placeholder="Search Spotify"
           onChange={handleSearchTermChange}
+          data-testid="search-input"
+          value={searchTerm}
         />
         <input type="submit" value="Search" onClick={handleSubmit} />
       </form>
