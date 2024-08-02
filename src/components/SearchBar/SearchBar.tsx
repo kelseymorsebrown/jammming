@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './SearchBar.module.css';
 import { SearchContext } from '../../context/SearchContext';
 import { SearchContextType, UserContextType } from '../../utils/types';
 import { UserContext } from '../../context/UserContext';
-import { access } from 'fs';
 
 function SearchBar() {
   const { searchSpotify, setSearchTerm, searchTerm } = React.useContext(
@@ -19,7 +18,6 @@ function SearchBar() {
     event.preventDefault();
 
     searchSpotify(searchTerm, accessToken);
-    console.log(accessToken);
   };
 
   return (

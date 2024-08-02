@@ -3,6 +3,7 @@ import spotifyAPI from '../../utils/spotifyAPI';
 import { UserContext } from '../../context/UserContext';
 import { UserContextType } from '../../utils/types';
 import styles from './LoginContainer.module.css';
+import { getHashParams, getQueryParams } from '../../utils/parsers';
 
 function LoginContainer() {
   const {
@@ -24,46 +25,6 @@ function LoginContainer() {
     return;
   };
 
-  /**
-   * Obtains parameters from the hash of the URL
-   */
-  function getHashParams() {
-    type HashParams = {
-      [key: string]: string;
-    };
-
-    let hashParams: HashParams = {};
-
-    let e;
-    const r = /([^&;=]+)=?([^&;]*)/g;
-    const q = window.location.hash.substring(1);
-
-    while ((e = r.exec(q))) {
-      hashParams[e[1]] = decodeURIComponent(e[2]);
-    }
-    return hashParams;
-  }
-
-  /**
-   * Obtains parameters from the hash of the URL
-   */
-  function getQueryParams() {
-    type QueryParams = {
-      [key: string]: string;
-    };
-
-    let queryParams: QueryParams = {};
-
-    let e;
-    const r = /([^&;=]+)=?([^&;]*)/g;
-    const q = window.location.search.substring(1);
-
-    while ((e = r.exec(q))) {
-      queryParams[e[1]] = decodeURIComponent(e[2]);
-    }
-    return queryParams;
-  }
-
   useEffect(() => {
     const params =
       JSON.stringify(getHashParams()) === '{}'
@@ -76,21 +37,17 @@ function LoginContainer() {
     const storedState = localStorage.getItem(stateKey);
 
     if (error) {
-      console.log(`There was an error during the authentication: ${error}`);
+      console.error(`There was an error during the authentication: ${error}`);
     } else if (access_token && (state == null || state !== storedState)) {
-      console.log('There was an error during the authentication');
+      console.error('There was an error during the authentication');
     } else if (access_token && expires_in) {
       console.log('Authentication successful');
       setAccessToken(access_token);
       setExpiresAt(getExpiresAt(expires_in));
     }
+    localStorage.removeItem(stateKey);
+    window.history.pushState({}, document.title, '/');
   }, []);
-
-  useEffect(() => {
-    if (accessToken && expiresAt) {
-      getDisplayName();
-    }
-  }, [accessToken, expiresAt]);
 
   async function getDisplayName() {
     const displayName = await spotifyAPI
@@ -111,6 +68,7 @@ function LoginContainer() {
 
   useEffect(() => {
     if (accessToken && expiresAt) {
+      getDisplayName();
       const timeRemaining = expiresAt - Date.now();
       const timeout = setTimeout(() => {
         alert('Authentication timeout, please log in again');
@@ -122,19 +80,18 @@ function LoginContainer() {
         clearTimeout(timeout);
       };
     }
-  }, [accessToken]);
-
-  if (accessToken && isLoggedIn) {
-    localStorage.removeItem(stateKey);
-    window.history.pushState({}, document.title, '/');
-  }
+  }, [accessToken, expiresAt]);
 
   return (
     <div id="login" className={styles.login}>
       {isLoggedIn ? (
         <p>Logged in as {displayName}</p>
       ) : (
-        <button id="login-button" onClick={handleLogin}>
+        <button
+          id="login-button"
+          data-testid="login-button"
+          onClick={handleLogin}
+        >
           Log in with Spotify
         </button>
       )}
