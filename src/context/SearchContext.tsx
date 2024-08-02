@@ -1,4 +1,7 @@
 import React, { createContext, useState } from 'react';
+
+import spotifyAPI from '../utils/spotifyAPI';
+
 import {
   TrackData,
   SearchContextType,
@@ -9,12 +12,10 @@ const mockTrack: TrackData = {
   album: {
     id: '2up3OPMp9Tb4dAKM2erWXQ',
     name: 'Example Album',
-    type: 'album',
     artists: [
       {
         id: 'string',
         name: 'Example Artist',
-        type: 'artist',
       },
     ],
   },
@@ -22,25 +23,21 @@ const mockTrack: TrackData = {
     {
       id: 'string',
       name: 'Example Artist',
-      type: 'artist',
     },
   ],
   id: 'string',
   uri: 'spotify:track:string',
   name: 'Example Track Name',
-  type: 'track',
 };
 
 const mockTrack2: TrackData = {
   album: {
     id: 'abgslw9425ew',
     name: 'Foolbum',
-    type: 'album',
     artists: [
       {
         id: 'string',
         name: 'Bartist',
-        type: 'artist',
       },
     ],
   },
@@ -48,13 +45,11 @@ const mockTrack2: TrackData = {
     {
       id: 'string',
       name: 'Bartist',
-      type: 'artist',
     },
   ],
   id: 'abcd',
   uri: 'spotify:track:abcd',
   name: 'Right On',
-  type: 'track',
 };
 
 const mockTrackList = [mockTrack, mockTrack2];
@@ -73,8 +68,16 @@ const SearchProvider: React.FC<{
   );
   const [searchTerm, setSearchTerm] = useState(initialValues.term);
 
+  const constructSearchParamsFromQuery = (query: string) => {
+    const searchQuery = new URLSearchParams([
+      ['q', query],
+      ['type', 'track'],
+    ]);
+    return searchQuery.toString();
+  };
+
   const searchSpotify = async (
-    searchTerm: string,
+    encodedQuery: string,
     accessToken: string | null
   ) => {
     if (!accessToken) {
@@ -84,15 +87,14 @@ const SearchProvider: React.FC<{
       setSearchResults(null);
       return;
     }
-    if (searchTerm === '') {
-      setErrorMessage(`Please enter a search term.`);
-      setSearchResults(null);
-      return;
+
+    const endpoint = spotifyAPI.getSearchEndpoint(encodedQuery);
+
+    const results = await spotifyAPI.getTracks(endpoint, accessToken);
+
+    if (results?.trackList) {
+      setSearchResults(results.trackList);
     }
-
-    const tracks = mockTrackList;
-
-    setSearchResults(tracks);
 
     if (!searchResults) {
       setErrorMessage(`Something went wrong. Please try again.`);
@@ -107,9 +109,12 @@ const SearchProvider: React.FC<{
     <SearchContext.Provider
       value={{
         searchTerm,
-        searchResults,
-        errorMessage,
         setSearchTerm,
+        searchResults,
+        setSearchResults,
+        errorMessage,
+        setErrorMessage,
+        constructSearchParamsFromQuery,
         searchSpotify,
       }}
     >
