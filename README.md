@@ -1,7 +1,8 @@
 # jammming
-Spotify Playlist App for CodeAcademy
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) for CodeAcademy's [Create a Playlist App with the Spotify API](https://www.codecademy.com/projects/portfolio/jammming-react18) portfolio project.
+
+For an additional challenge, I chose to write it in TypeScript.
 
 ## Available Scripts
 
