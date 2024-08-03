@@ -21,7 +21,8 @@ const spotifyAPI = {
 
     localStorage.setItem(stateKey, state);
 
-    const scope = 'user-read-private user-read-email';
+    const scope =
+      'user-read-email playlist-modify-public playlist-modify-private';
 
     let url = 'https://accounts.spotify.com/authorize';
     url += '?response_type=token';
@@ -61,8 +62,6 @@ const spotifyAPI = {
     return `https://api.spotify.com/v1/search?${query}`;
   },
   getTracks(endpoint: string, accessToken: string | null) {
-    console.log(`Client: ${CLIENT_ID}`);
-
     return fetch(endpoint, {
       headers: {
         Authorization: 'Bearer ' + accessToken,
@@ -129,6 +128,77 @@ const spotifyAPI = {
       })
       .catch((error) => {
         console.error('Error fetching and parsing data', error);
+      });
+  },
+  createPlaylist(userId: string, accessToken: string | null, name: string) {
+    console.log(`Client: ${CLIENT_ID}`);
+
+    const endpoint = `https://api.spotify.com/v1/users/${userId}/playlists`;
+
+    return fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + accessToken,
+      },
+      body: JSON.stringify({
+        name: name,
+        description: 'Playlist made with Jammming',
+        public: false,
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then((errorResponse) => {
+            console.error('API error: ', errorResponse);
+            throw new Error('API error');
+          });
+        }
+        return response.json();
+      })
+      .then((jsonResponse) => {
+        return jsonResponse.id;
+      })
+      .catch((error) => {
+        console.error('Error posting data', error);
+      });
+  },
+  addTracks(
+    accessToken: string | null,
+    playlistId: string,
+    trackUris: string[]
+  ) {
+    const endpoint = `https://api.spotify.com/v1/playlists/${playlistId}/tracks`;
+
+    return fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + accessToken,
+      },
+      body: JSON.stringify({
+        uris: trackUris,
+        position: 0,
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then((errorResponse) => {
+            console.error('API error: ', errorResponse);
+            throw new Error('API error');
+          });
+        }
+        return response.json();
+      })
+      .then((jsonResponse) => {
+        if (jsonResponse.snapshot_id) {
+          console.log('success');
+          return 'success';
+        } else {
+          console.log('failure');
+          return 'failure';
+        }
+      })
+      .catch((error) => {
+        console.error('Error posting data', error);
       });
   },
 };

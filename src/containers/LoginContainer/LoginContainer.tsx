@@ -69,6 +69,7 @@ function LoginContainer() {
       const timeout = setTimeout(() => {
         alert('Authentication timeout, please log in again');
         setAccessToken(null);
+        setUser(null);
         setIsLoggedIn(false);
         setExpiresAt(null);
       }, timeRemaining);

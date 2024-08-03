@@ -39,13 +39,12 @@ export interface SearchContextType {
 
 export interface PlaylistContextType {
   playlistTracks: TrackData[];
+  setPlaylistTracks: (value: React.SetStateAction<TrackData[]>) => void;
   playlistName: string;
-  playlistURIs: string[] | null;
   hasTracklist: boolean;
   addTrack: (track: TrackData) => void;
   removeTrack: (track: TrackData) => void;
   setPlaylistName: (value: React.SetStateAction<string>) => void;
-  setPlaylistURIs: (value: React.SetStateAction<string[]>) => void;
 }
 
 export interface UserContextType {

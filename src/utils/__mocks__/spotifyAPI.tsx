@@ -15,6 +15,12 @@ const spotifyAPI = {
       previous: null,
     });
   }),
+  createPlaylist: jest.fn(() => {
+    Promise.resolve('');
+  }),
+  addTracks: jest.fn(() => {
+    Promise.resolve('');
+  }),
 };
 
 export default spotifyAPI;
