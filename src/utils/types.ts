@@ -1,6 +1,5 @@
 export interface TrackData {
   name: string;
-  type: string;
   artists: Artist[];
   album: Album;
   id: string;
@@ -9,14 +8,12 @@ export interface TrackData {
 
 export interface Artist {
   name: string;
-  type: string;
   id: string;
 }
 
 export interface Album {
   artists: Artist[];
   name: string;
-  type: string;
   id: string;
 }
 
@@ -27,9 +24,13 @@ export interface TrackButton {
 
 export interface SearchContextType {
   searchTerm: string;
-  searchResults: TrackData[] | null;
-  errorMessage: string | null;
   setSearchTerm: (value: React.SetStateAction<string>) => void;
+  searchResults: TrackData[] | null;
+  setSearchResults: (value: React.SetStateAction<TrackData[] | null>) => void;
+  errorMessage: string | null;
+  setErrorMessage: (value: React.SetStateAction<string | null>) => void;
+  constructSearchParamsFromQuery: (query: string) => string;
+
   searchSpotify: (
     searchTerm: string,
     accessToken: string | null

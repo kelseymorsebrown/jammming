@@ -1,43 +1,98 @@
-import { render, screen } from '@testing-library/react';
+import { waitFor, render, screen } from '@testing-library/react';
 import SearchBar from './SearchBar';
 import SearchProvider from '../../context/SearchContext';
 import UserProvider from '../../context/UserContext';
-
+import spotifyAPI from '../../utils/spotifyAPI';
+import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 
-const srInit = {
-  results: null,
-  term: '',
-  err: null,
-};
+jest.mock('../../utils/spotifyAPI');
 
-const userInit = {
-  isLoggedIn: false,
-  displayName: null,
-  accessToken: null,
-  expiresAt: null,
-};
+describe('SearchBar', () => {
+  const srInit = {
+    results: null,
+    term: '',
+    err: null,
+  };
 
-it('Displays the search button', async () => {
-  render(
-    <UserProvider initialValues={userInit}>
-      <SearchProvider initialValues={srInit}>
-        <SearchBar />
-      </SearchProvider>
-    </UserProvider>
-  );
+  const userInit = {
+    isLoggedIn: false,
+    displayName: null,
+    accessToken: null,
+    expiresAt: null,
+  };
 
-  expect(screen.getByText('Search')).toBeInTheDocument();
-});
+  const mockValidSearch = 'test';
 
-it('Displays the search placeholder text', async () => {
-  render(
-    <UserProvider initialValues={userInit}>
-      <SearchProvider initialValues={srInit}>
-        <SearchBar />
-      </SearchProvider>
-    </UserProvider>
-  );
+  it('Displays the search button', async () => {
+    render(
+      <UserProvider initialValues={userInit}>
+        <SearchProvider initialValues={srInit}>
+          <SearchBar />
+        </SearchProvider>
+      </UserProvider>
+    );
 
-  expect(screen.queryByPlaceholderText(/Search Spotify/i)).toBeInTheDocument();
+    expect(screen.getByText('Search')).toBeInTheDocument();
+  });
+
+  it('Displays the search placeholder text', async () => {
+    render(
+      <UserProvider initialValues={userInit}>
+        <SearchProvider initialValues={srInit}>
+          <SearchBar />
+        </SearchProvider>
+      </UserProvider>
+    );
+
+    expect(
+      screen.queryByPlaceholderText(/Search Spotify/i)
+    ).toBeInTheDocument();
+  });
+
+  it('updates playlist name with user input', async () => {
+    const handleSearchTermChange = jest.fn();
+
+    render(
+      <UserProvider initialValues={userInit}>
+        <SearchProvider initialValues={srInit}>
+          <SearchBar />
+        </SearchProvider>
+      </UserProvider>
+    );
+
+    const input = screen.getByTestId('search-input');
+
+    expect(input?.getAttribute('value')).toBeNull;
+
+    userEvent.type(input, mockValidSearch);
+
+    await waitFor(() => {
+      const searchTerm = screen
+        .getByTestId('search-input')
+        ?.getAttribute('value');
+      expect(searchTerm).toEqual(mockValidSearch);
+      expect(handleSearchTermChange).toHaveBeenCalled;
+    });
+  });
+
+  it('calls the spotify API when search is submitted', async () => {
+    render(
+      <UserProvider initialValues={userInit}>
+        <SearchProvider initialValues={srInit}>
+          <SearchBar />
+        </SearchProvider>
+      </UserProvider>
+    );
+
+    const input = screen.getByTestId('search-input');
+    const button = screen.getByTestId('search-button');
+
+    userEvent.type(input, mockValidSearch);
+    userEvent.click(button);
+
+    await waitFor(() => {
+      expect(spotifyAPI.getTracks).toHaveBeenCalled;
+    });
+  });
 });

@@ -80,9 +80,8 @@ describe('LoginContainer', () => {
   });
 
   it('displays the username when access is granted', async () => {
-    //jest.mock('../../utils/spotifyAPI');
-    // TODO: Figure out why it wasn't using my manual mock at all
-
+    jest.mock('../../utils/spotifyAPI');
+    const mockedSpotifyAPI = spotifyAPI as jest.Mocked<typeof spotifyAPI>;
     const stateKey = 'spotify_auth_state';
 
     window.localStorage.setItem(stateKey, '1234');
@@ -91,12 +90,13 @@ describe('LoginContainer', () => {
     window.location.hash =
       '#access_token=efgh5678&token_type=Bearer&expires_in=3600&state=1234';
 
-    const mockGetUser = jest.fn().mockResolvedValue({
+    const mockGetUser: Awaited<ReturnType<typeof spotifyAPI.getUser>> = {
       display_name: 'Test User',
       id: 'testuser',
-    });
+    };
 
-    jest.spyOn(spotifyAPI, 'getUser').mockImplementation(mockGetUser);
+    const getUSerSpy = jest.spyOn(spotifyAPI, 'getUser');
+    mockedSpotifyAPI.getUser.mockResolvedValue(mockGetUser);
 
     render(
       <UserProvider initialValues={userInit}>
@@ -105,13 +105,14 @@ describe('LoginContainer', () => {
     );
 
     await waitFor(() => {
+      expect(getUSerSpy).toHaveBeenCalledWith(stateKey, 'efgh5678');
       expect(screen.getByText('Logged in as Test User')).toBeInTheDocument();
     });
   });
 
   it('calls the spotify API for the user access is granted', async () => {
-    // jest.mock('../../utils/spotifyAPI');
-    // TODO: Figure out why it wasn't using my manual mock at all
+    jest.mock('../../utils/spotifyAPI');
+    const mockedSpotifyAPI = spotifyAPI as jest.Mocked<typeof spotifyAPI>;
 
     const stateKey = 'spotify_auth_state';
 
@@ -121,12 +122,14 @@ describe('LoginContainer', () => {
     window.location.hash =
       '#access_token=efgh5678&token_type=Bearer&expires_in=3600&state=1234';
 
-    const getUSerSpy = jest.spyOn(spotifyAPI, 'getUser');
-    const mockGetUser = jest.fn().mockResolvedValue({
+    const mockGetUser: Awaited<ReturnType<typeof spotifyAPI.getUser>> = {
       display_name: 'Test User',
       id: 'testuser',
-    });
-    getUSerSpy.mockImplementation(mockGetUser);
+    };
+
+    const getUSerSpy = jest.spyOn(spotifyAPI, 'getUser');
+
+    mockedSpotifyAPI.getUser.mockResolvedValue(mockGetUser);
 
     render(
       <UserProvider initialValues={userInit}>

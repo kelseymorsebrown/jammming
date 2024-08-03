@@ -5,9 +5,14 @@ import { SearchContextType, UserContextType } from '../../utils/types';
 import { UserContext } from '../../context/UserContext';
 
 function SearchBar() {
-  const { searchSpotify, setSearchTerm, searchTerm } = React.useContext(
-    SearchContext
-  ) as SearchContextType;
+  const {
+    searchTerm,
+    setSearchTerm,
+    setSearchResults,
+    setErrorMessage,
+    constructSearchParamsFromQuery,
+    searchSpotify,
+  } = React.useContext(SearchContext) as SearchContextType;
 
   const { accessToken } = React.useContext(UserContext) as UserContextType;
 
@@ -17,7 +22,16 @@ function SearchBar() {
   const handleSubmit = (event: React.MouseEvent<HTMLInputElement>) => {
     event.preventDefault();
 
-    searchSpotify(searchTerm, accessToken);
+    if (searchTerm === '') {
+      setErrorMessage(`Please enter a search term.`);
+      setSearchResults(null);
+      return;
+    }
+
+    const encodedQueryParams: string =
+      constructSearchParamsFromQuery(searchTerm);
+
+    searchSpotify(encodedQueryParams, accessToken);
   };
 
   return (
@@ -29,8 +43,15 @@ function SearchBar() {
           id="term"
           placeholder="Search Spotify"
           onChange={handleSearchTermChange}
+          data-testid="search-input"
+          value={searchTerm}
         />
-        <input type="submit" value="Search" onClick={handleSubmit} />
+        <input
+          type="submit"
+          value="Search"
+          data-testid="search-button"
+          onClick={handleSubmit}
+        />
       </form>
     </div>
   );
