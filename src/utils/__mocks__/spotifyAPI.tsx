@@ -1,9 +1,18 @@
 const spotifyAPI = {
   logIn: jest.fn(),
   getUser: jest.fn(() => {
-    return Promise.resolve({
+    Promise.resolve({
       display_name: '',
       id: '',
+    });
+  }),
+  getSearchEndpoint: jest.fn(() => ''),
+  getTracks: jest.fn(() => {
+    Promise.resolve({
+      trackList: [],
+      total: 2,
+      next: null,
+      previous: null,
     });
   }),
 };

@@ -46,7 +46,12 @@ function SearchBar() {
           data-testid="search-input"
           value={searchTerm}
         />
-        <input type="submit" value="Search" onClick={handleSubmit} />
+        <input
+          type="submit"
+          value="Search"
+          data-testid="search-button"
+          onClick={handleSubmit}
+        />
       </form>
     </div>
   );
