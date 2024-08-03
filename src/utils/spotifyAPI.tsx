@@ -40,15 +40,22 @@ const spotifyAPI = {
       headers: {
         Authorization: 'Bearer ' + accessToken,
       },
-    }).then((response) => {
-      if (!response.ok) {
-        return response.json().then((errorResponse) => {
-          console.error('API error: ', errorResponse);
-          throw new Error('API error');
-        });
-      }
-      return response.json();
-    });
+    })
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then((errorResponse) => {
+            console.error('API error: ', errorResponse);
+            throw new Error('API error');
+          });
+        }
+        return response.json();
+      })
+      .then((jsonResponse) => {
+        return {
+          displayName: jsonResponse.display_name,
+          id: jsonResponse.id,
+        };
+      });
   },
   getSearchEndpoint(query: string) {
     return `https://api.spotify.com/v1/search?${query}`;

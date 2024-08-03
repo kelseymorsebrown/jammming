@@ -26,7 +26,7 @@ describe('LoginContainer', () => {
 
   const userInit = {
     isLoggedIn: false,
-    displayName: null,
+    user: null,
     accessToken: null,
     expiresAt: null,
   };
@@ -91,7 +91,7 @@ describe('LoginContainer', () => {
       '#access_token=efgh5678&token_type=Bearer&expires_in=3600&state=1234';
 
     const mockGetUser: Awaited<ReturnType<typeof spotifyAPI.getUser>> = {
-      display_name: 'Test User',
+      displayName: 'Test User',
       id: 'testuser',
     };
 
@@ -123,7 +123,7 @@ describe('LoginContainer', () => {
       '#access_token=efgh5678&token_type=Bearer&expires_in=3600&state=1234';
 
     const mockGetUser: Awaited<ReturnType<typeof spotifyAPI.getUser>> = {
-      display_name: 'Test User',
+      displayName: 'Test User',
       id: 'testuser',
     };
 

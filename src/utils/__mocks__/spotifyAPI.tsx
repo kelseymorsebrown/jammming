@@ -2,7 +2,7 @@ const spotifyAPI = {
   logIn: jest.fn(),
   getUser: jest.fn(() => {
     Promise.resolve({
-      display_name: '',
+      displayName: '',
       id: '',
     });
   }),
