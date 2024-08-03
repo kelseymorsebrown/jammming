@@ -15,7 +15,6 @@ const PlaylistProvider: React.FC<{
     initialValues.tracks
   );
   const [playlistName, setPlaylistName] = useState(initialValues.name);
-  const [playlistURIs, setPlaylistURIs] = useState<string[]>([]);
   const [hasTracklist, setHasTracklist] = useState(false);
 
   const addTrack = (track: TrackData) => {
@@ -45,28 +44,16 @@ const PlaylistProvider: React.FC<{
     }
   }, [playlistTracks]);
 
-  useEffect(() => {
-    if (playlistURIs.length > 0) {
-      console.log(playlistName);
-      console.log(playlistURIs);
-      console.log('before setPlaylistTracks');
-      setPlaylistTracks([]);
-      setPlaylistName('');
-      console.log('after setPlaylistTracks');
-    }
-  }, [playlistURIs]);
-
   return (
     <PlaylistContext.Provider
       value={{
         playlistTracks,
         playlistName,
-        playlistURIs,
         hasTracklist,
         addTrack,
         removeTrack,
         setPlaylistName,
-        setPlaylistURIs,
+        setPlaylistTracks,
       }}
     >
       {children}

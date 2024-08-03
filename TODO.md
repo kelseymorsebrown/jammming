@@ -1,17 +1,11 @@
 # Next Step
 
-Implement Spotify Search Request
+Save a User's Playlist
 
-Connect the search bar to Spotify so that it can query data from the Spotify API. Your implementation should enable users to enter a search parameter and receive a response from the Spotify API. You should display the results from the request to the user.
+Create a method that writes the user’s custom playlist in Jammming to their Spotify account. The user should be able to save their custom playlist from Jammming into their account when they click the “Save To Spotify” button.
 
-To make your request to the API, use the `/v1/search?type=TRACK` endpoint. You can refer to the [Spotify Web API Endpoint Reference](https://developer.spotify.com/documentation/web-api/reference/#/) for guidance on formatting your request.
+To implement this feature, you will need to make requests to create new playlists on the user’s Spotify account with the playlist’s custom name and add the tracks from the user’s custom playlist to the new playlist.
 
-You can use `fetch()` to make your `GET` requests and you should be expecting the response back as a list of tracks in JSON format.
-
-It is best to convert the JSON to an array of tracks, the array should be a list of track objects with the following properties: `id`, `name`, `artist`, `album`, and `uri`.
-
-Common errors to avoid:
-
-- Invalid access tokens: Make sure that you use valid access tokens before making your requests.
-- Incorrect API endpoint: Make sure you use `/v1/search?type=TRACK` as outlined in the documentation.
-- Incorrectly formatted requests: Refer to the Endpoint Reference documentation for guidance on how to format your requests.
+- To hit the necessary endpoints, you’ll need the user’s ID, you can make a request that returns the user’s Spotify username by making a request to `https://api.spotify.com/v1/me`.
+- To create a new playlist, you will need to make a POST request to the `/v1/users/{user_id}/playlists` endpoint. You can set the name and description of the new playlist in the request body.
+- To add tracks to the new playlist, you will need to make a POST request to the `//v1/users/{user_id}/playlists/{playlist_id}/tracks` endpoint. You can provide a list of track IDs in the request body to add them to the playlist.

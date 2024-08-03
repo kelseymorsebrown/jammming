@@ -39,20 +39,19 @@ export interface SearchContextType {
 
 export interface PlaylistContextType {
   playlistTracks: TrackData[];
+  setPlaylistTracks: (value: React.SetStateAction<TrackData[]>) => void;
   playlistName: string;
-  playlistURIs: string[] | null;
   hasTracklist: boolean;
   addTrack: (track: TrackData) => void;
   removeTrack: (track: TrackData) => void;
   setPlaylistName: (value: React.SetStateAction<string>) => void;
-  setPlaylistURIs: (value: React.SetStateAction<string[]>) => void;
 }
 
 export interface UserContextType {
   isLoggedIn: boolean;
   setIsLoggedIn: (value: React.SetStateAction<boolean>) => void;
-  displayName: string | null;
-  setDisplayName: (value: React.SetStateAction<string | null>) => void;
+  user: User | null;
+  setUser: (value: React.SetStateAction<User | null>) => void;
   accessToken: string | null;
   setAccessToken: (value: React.SetStateAction<string | null>) => void;
   expiresAt: number | null;
@@ -72,7 +71,12 @@ export interface PlaylistInitialValues {
 
 export interface UserInitialValues {
   isLoggedIn: boolean;
-  displayName: string | null;
   accessToken: string | null;
   expiresAt: number | null;
+  user: User | null;
+}
+
+export interface User {
+  displayName: string;
+  id: string;
 }

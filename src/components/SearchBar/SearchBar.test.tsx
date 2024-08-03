@@ -17,7 +17,7 @@ describe('SearchBar', () => {
 
   const userInit = {
     isLoggedIn: false,
-    displayName: null,
+    user: null,
     accessToken: null,
     expiresAt: null,
   };

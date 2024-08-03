@@ -8,17 +8,17 @@ const UserProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ initialValues, children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(initialValues.isLoggedIn);
-  const [displayName, setDisplayName] = useState(initialValues.displayName);
   const [accessToken, setAccessToken] = useState(initialValues.accessToken);
   const [expiresAt, setExpiresAt] = useState(initialValues.expiresAt);
+  const [user, setUser] = useState(initialValues.user);
 
   return (
     <UserContext.Provider
       value={{
         isLoggedIn,
         setIsLoggedIn,
-        displayName,
-        setDisplayName,
+        user,
+        setUser,
         accessToken,
         setAccessToken,
         expiresAt,

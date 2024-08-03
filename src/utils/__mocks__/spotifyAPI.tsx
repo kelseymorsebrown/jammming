@@ -2,7 +2,7 @@ const spotifyAPI = {
   logIn: jest.fn(),
   getUser: jest.fn(() => {
     Promise.resolve({
-      display_name: '',
+      displayName: '',
       id: '',
     });
   }),
@@ -14,6 +14,12 @@ const spotifyAPI = {
       next: null,
       previous: null,
     });
+  }),
+  createPlaylist: jest.fn(() => {
+    Promise.resolve('');
+  }),
+  addTracks: jest.fn(() => {
+    Promise.resolve('');
   }),
 };
 

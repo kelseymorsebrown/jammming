@@ -100,7 +100,7 @@ describe('App', () => {
       '#access_token=efgh5678&token_type=Bearer&expires_in=3600&state=1234';
 
     const mockGetUser: Awaited<ReturnType<typeof spotifyAPI.getUser>> = {
-      display_name: 'Test User',
+      displayName: 'Test User',
       id: 'testuser',
     };
 

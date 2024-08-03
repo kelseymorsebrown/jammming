@@ -9,8 +9,8 @@ function LoginContainer() {
   const {
     isLoggedIn,
     setIsLoggedIn,
-    displayName,
-    setDisplayName,
+    user,
+    setUser,
     accessToken,
     setAccessToken,
     expiresAt,
@@ -49,15 +49,11 @@ function LoginContainer() {
     window.history.pushState({}, document.title, '/');
   }, []);
 
-  async function getDisplayName() {
-    const displayName = await spotifyAPI
-      .getUser(stateKey, accessToken)
-      .then((jsonResponse) => {
-        return jsonResponse.display_name;
-      });
+  async function getUserData() {
+    const userResponse = await spotifyAPI.getUser(stateKey, accessToken);
 
-    if (displayName) {
-      setDisplayName(displayName);
+    if (userResponse) {
+      setUser(userResponse);
       setIsLoggedIn(true);
     }
   }
@@ -68,11 +64,12 @@ function LoginContainer() {
 
   useEffect(() => {
     if (accessToken && expiresAt) {
-      getDisplayName();
+      getUserData();
       const timeRemaining = expiresAt - Date.now();
       const timeout = setTimeout(() => {
         alert('Authentication timeout, please log in again');
         setAccessToken(null);
+        setUser(null);
         setIsLoggedIn(false);
         setExpiresAt(null);
       }, timeRemaining);
@@ -85,7 +82,7 @@ function LoginContainer() {
   return (
     <div id="login" className={styles.login}>
       {isLoggedIn ? (
-        <p>Logged in as {displayName}</p>
+        <p>Logged in as {user?.displayName}</p>
       ) : (
         <button
           id="login-button"

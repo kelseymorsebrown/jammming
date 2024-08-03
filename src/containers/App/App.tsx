@@ -22,7 +22,7 @@ function App() {
 
   const userInitialValues = {
     isLoggedIn: false,
-    displayName: null,
+    user: null,
     accessToken: null,
     expiresAt: null,
   };
