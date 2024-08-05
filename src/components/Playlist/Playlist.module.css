@@ -1,6 +1,11 @@
 .Playlist {
   display: block;
   overflow: hidden;
+  text-align: center;
+}
+
+.SaveButton {
+  padding: 0.5em;
 }
 
 .PlaylistName {
@@ -31,6 +36,7 @@
 
   input::placeholder {
     color: white;
+    opacity: 0.5;
   }
 
   input:focus {

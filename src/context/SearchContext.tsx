@@ -3,56 +3,10 @@ import React, { createContext, useState } from 'react';
 import spotifyAPI from '../utils/spotifyAPI';
 
 import {
-  TrackData,
+  SearchResults,
   SearchContextType,
   SearchInitialValues,
 } from '../utils/types';
-
-const mockTrack: TrackData = {
-  album: {
-    id: '2up3OPMp9Tb4dAKM2erWXQ',
-    name: 'Example Album',
-    artists: [
-      {
-        id: 'string',
-        name: 'Example Artist',
-      },
-    ],
-  },
-  artists: [
-    {
-      id: 'string',
-      name: 'Example Artist',
-    },
-  ],
-  id: 'string',
-  uri: 'spotify:track:string',
-  name: 'Example Track Name',
-};
-
-const mockTrack2: TrackData = {
-  album: {
-    id: 'abgslw9425ew',
-    name: 'Foolbum',
-    artists: [
-      {
-        id: 'string',
-        name: 'Bartist',
-      },
-    ],
-  },
-  artists: [
-    {
-      id: 'string',
-      name: 'Bartist',
-    },
-  ],
-  id: 'abcd',
-  uri: 'spotify:track:abcd',
-  name: 'Right On',
-};
-
-const mockTrackList = [mockTrack, mockTrack2];
 
 export const SearchContext = createContext<SearchContextType | null>(null);
 
@@ -60,7 +14,7 @@ const SearchProvider: React.FC<{
   initialValues: SearchInitialValues;
   children: React.ReactNode;
 }> = ({ initialValues, children }) => {
-  const [searchResults, setSearchResults] = useState<TrackData[] | null>(
+  const [searchResults, setSearchResults] = useState<SearchResults | null>(
     initialValues.results
   );
   const [errorMessage, setErrorMessage] = useState<string | null>(
@@ -73,6 +27,12 @@ const SearchProvider: React.FC<{
       ['q', query],
       ['type', 'track'],
     ]);
+    return searchQuery.toString();
+  };
+
+  const extractSearchParamsFromURL = (url: string) => {
+    const newURL = new URL(url);
+    const searchQuery = new URLSearchParams(newURL.search);
     return searchQuery.toString();
   };
 
@@ -93,8 +53,11 @@ const SearchProvider: React.FC<{
     const results = await spotifyAPI.getTracks(endpoint, accessToken);
 
     if (results?.trackList) {
-      setSearchResults(results.trackList);
+      setSearchResults(results);
     }
+
+    console.log(`Next: ${results?.next}`);
+    console.log(`Previous: ${results?.previous}`);
 
     if (!searchResults) {
       setErrorMessage(`Something went wrong. Please try again.`);
@@ -115,6 +78,7 @@ const SearchProvider: React.FC<{
         errorMessage,
         setErrorMessage,
         constructSearchParamsFromQuery,
+        extractSearchParamsFromURL,
         searchSpotify,
       }}
     >

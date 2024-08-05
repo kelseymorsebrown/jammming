@@ -59,6 +59,13 @@ describe('SearchResultsContainer', () => {
     },
   ];
 
+  const resultsInit = {
+    trackList: mockTrackList,
+    total: 2,
+    next: null,
+    previous: null,
+  };
+
   const plInit = {
     tracks: [],
     name: '',
@@ -66,7 +73,7 @@ describe('SearchResultsContainer', () => {
 
   it('renders the search results component when there are results', () => {
     const srInit = {
-      results: mockTrackList,
+      results: resultsInit,
       term: 'test',
       err: null,
     };

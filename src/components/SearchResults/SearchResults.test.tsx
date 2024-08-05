@@ -8,10 +8,22 @@ it('Displays the search results header', async () => {
       tracks={[]}
       trackButton={{
         label: '+',
-        callback: () => {}
+        callback: () => {},
+      }}
+      prevButton={{
+        label: '⏴',
+        callback: () => {},
+        id: 'previous-button',
+        enabled: false,
+      }}
+      nextButton={{
+        label: '⏵',
+        callback: () => {},
+        id: 'next-button',
+        enabled: false,
       }}
     />
   );
 
   expect(screen.getByText('Results')).toBeInTheDocument();
-})
+});

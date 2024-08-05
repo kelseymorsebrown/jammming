@@ -22,15 +22,29 @@ export interface TrackButton {
   callback: (track: TrackData) => void;
 }
 
+export interface NavButton {
+  label: string;
+  id: string;
+  callback: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  enabled: boolean;
+}
+
+export interface SearchResults {
+  trackList: TrackData[] | null;
+  total: number;
+  next: string | null;
+  previous: string | null;
+}
+
 export interface SearchContextType {
   searchTerm: string;
   setSearchTerm: (value: React.SetStateAction<string>) => void;
-  searchResults: TrackData[] | null;
-  setSearchResults: (value: React.SetStateAction<TrackData[] | null>) => void;
+  searchResults: SearchResults | null;
+  setSearchResults: (value: React.SetStateAction<SearchResults | null>) => void;
   errorMessage: string | null;
   setErrorMessage: (value: React.SetStateAction<string | null>) => void;
   constructSearchParamsFromQuery: (query: string) => string;
-
+  extractSearchParamsFromURL: (query: string) => string;
   searchSpotify: (
     searchTerm: string,
     accessToken: string | null
@@ -59,7 +73,7 @@ export interface UserContextType {
 }
 
 export interface SearchInitialValues {
-  results: TrackData[] | null;
+  results: SearchResults | null;
   term: string;
   err: string | null;
 }
