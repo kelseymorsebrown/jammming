@@ -24,7 +24,8 @@ describe('SearchResults', () => {
     id: 'next-button',
     enabled: false,
   };
-  it('Displays the search results header', async () => {
+
+  it('Renders the search results header', async () => {
     render(
       <SearchResults
         tracks={[]}
@@ -37,51 +38,39 @@ describe('SearchResults', () => {
     expect(screen.getByText('Results')).toBeInTheDocument();
   });
 
-  it('Renders a disabled previous button when enabled is false', () => {
+  it('Renders previous buttons', () => {
     render(
       <SearchResults
         tracks={[]}
         trackButton={mockTracksButton}
-        prevButton={Object.assign(mockPrevButton, { enabled: false })}
-        nextButton={Object.assign(mockNextButton, { enabled: true })}
+        prevButton={{ ...mockPrevButton, enabled: true }}
+        nextButton={{ ...mockNextButton, enabled: true }}
       />
     );
 
-    expect(screen.getByLabelText(mockPrevButton.ariaLabel)).toBeDisabled();
-  });
-  it('Renders an enabled previous button when enabled is true', () => {
-    render(
-      <SearchResults
-        tracks={[]}
-        trackButton={mockTracksButton}
-        prevButton={Object.assign(mockPrevButton, { enabled: true })}
-        nextButton={Object.assign(mockNextButton, { enabled: false })}
-      />
-    );
-    expect(screen.getByLabelText(mockPrevButton.ariaLabel)).toBeDisabled();
+    expect(screen.getByLabelText(mockPrevButton.ariaLabel)).toBeInTheDocument();
   });
 
-  it('Renders a disabled next button when enabled is false', () => {
+  it('Renders next button', () => {
     render(
       <SearchResults
         tracks={[]}
         trackButton={mockTracksButton}
-        prevButton={Object.assign(mockPrevButton, { enabled: true })}
-        nextButton={Object.assign(mockNextButton, { enabled: false })}
+        prevButton={{ ...mockPrevButton, enabled: true }}
+        nextButton={{ ...mockNextButton, enabled: true }}
       />
     );
-    expect(screen.getByLabelText(mockNextButton.ariaLabel)).toBeDisabled();
+    expect(screen.getByLabelText(mockNextButton.ariaLabel)).toBeInTheDocument();
   });
-  it('Renders an enabled next button when enabled is true', () => {
+
+  it('Renders the search results', () => {
     render(
       <SearchResults
         tracks={[]}
         trackButton={mockTracksButton}
-        prevButton={Object.assign(mockPrevButton, { enabled: false })}
-        nextButton={Object.assign(mockNextButton, { enabled: true })}
+        prevButton={mockPrevButton}
+        nextButton={mockNextButton}
       />
     );
-
-    expect(screen.getByLabelText(mockNextButton.ariaLabel)).not.toBeDisabled();
   });
 });

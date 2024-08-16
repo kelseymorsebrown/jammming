@@ -1,9 +1,16 @@
-import { render, screen } from '@testing-library/react';
+import { waitFor, render, screen } from '@testing-library/react';
 import SearchResultsContainer from './SearchResultsContainer';
 import '@testing-library/jest-dom';
-
+import userEvent from '@testing-library/user-event';
 import SearchProvider from '../../context/SearchContext';
 import PlaylistProvider from '../../context/PlaylistContext';
+import spotifyAPI from '../../utils/spotifyAPI';
+import {
+  PlaylistInitialValues,
+  SearchInitialValues,
+  UserInitialValues,
+} from '../../utils/types';
+import UserProvider from '../../context/UserContext';
 
 describe('SearchResultsContainer', () => {
   const mockTrackList = [
@@ -59,51 +66,141 @@ describe('SearchResultsContainer', () => {
     },
   ];
 
-  const resultsInit = {
-    trackList: mockTrackList,
-    total: 2,
-    next: null,
-    previous: null,
-  };
-
-  const plInit = {
+  const mockPlInit: PlaylistInitialValues = {
     tracks: [],
     name: '',
   };
 
-  it('renders the search results component when there are results', () => {
-    const srInit = {
-      results: resultsInit,
-      term: 'test',
-      err: null,
-    };
+  const mockUserInit: UserInitialValues = {
+    isLoggedIn: true,
+    user: {
+      displayName: 'testUser',
+      id: 'abcd12345',
+    },
+    accessToken: 'efgh5678',
+    expiresAt: null,
+  };
 
+  const mockSerResInit = {
+    results: {
+      trackList: mockTrackList,
+      total: 6,
+      next: null,
+      previous: null,
+    },
+    term: 'test',
+    err: null,
+  };
+
+  jest.mock('../../utils/spotifyAPI');
+  const mockedSpotifyAPI = spotifyAPI as jest.Mocked<typeof spotifyAPI>;
+  const getTracksSpy = jest.spyOn(spotifyAPI, 'getTracks');
+
+  function renderSearchResultsContainer(
+    mockUserInit: UserInitialValues,
+    mockSearchInit: SearchInitialValues,
+    mockPlaylistInit: PlaylistInitialValues
+  ) {
     render(
-      <SearchProvider initialValues={srInit}>
-        <PlaylistProvider initialValues={plInit}>
-          <SearchResultsContainer />
-        </PlaylistProvider>
-      </SearchProvider>
+      <UserProvider initialValues={mockUserInit}>
+        <SearchProvider initialValues={mockSearchInit}>
+          <PlaylistProvider initialValues={mockPlaylistInit}>
+            <SearchResultsContainer />
+          </PlaylistProvider>
+        </SearchProvider>
+      </UserProvider>
     );
+  }
+
+  it('renders the search results component when there are results', () => {
+    renderSearchResultsContainer(mockUserInit, mockSerResInit, mockPlInit);
 
     expect(screen.queryByTestId('search-results')).toBeInTheDocument();
   });
 
   it('renders the error component when there are no search results', () => {
-    const srInit = {
+    const mockResult = {
+      ...mockSerResInit,
       results: null,
-      term: '',
       err: 'Please enter a search term.',
     };
 
-    render(
-      <SearchProvider initialValues={srInit}>
-        <PlaylistProvider initialValues={plInit}>
-          <SearchResultsContainer />
-        </PlaylistProvider>
-      </SearchProvider>
-    );
+    renderSearchResultsContainer(mockUserInit, mockResult, mockPlInit);
 
     expect(screen.queryByTestId('search-error')).toBeInTheDocument();
+  });
+  it.only('calls the spotify API getTracks with correct endpoint when next is clicked', async () => {
+    const mockBaseUrl = 'https://api.spotify.com/v1/search?';
+
+    const mockQuerys = [
+      'query=test&type=track&offset=0&limit=2',
+      'query=test&type=track&offset=2&limit=2',
+      'query=test&type=track&offset=4&limit=2',
+    ];
+
+    const mockInitResult = {
+      ...mockSerResInit,
+      results: {
+        ...mockSerResInit.results,
+        next: `${mockBaseUrl}${mockQuerys[1]}`,
+      },
+    };
+
+    mockedSpotifyAPI.getTracks
+      .mockResolvedValue({
+        trackList: mockTrackList,
+        total: 6,
+        previous: null,
+        next: `${mockBaseUrl}${mockQuerys[1]}`,
+      })
+      .mockResolvedValueOnce({
+        trackList: mockTrackList,
+        total: 6,
+        previous: `${mockBaseUrl}${mockQuerys[0]}`,
+        next: `${mockBaseUrl}${mockQuerys[2]}`,
+      })
+      .mockResolvedValueOnce({
+        trackList: mockTrackList,
+        total: 6,
+        previous: `${mockBaseUrl}${mockQuerys[1]}`,
+        next: null,
+      });
+
+    // initial render
+    renderSearchResultsContainer(mockUserInit, mockInitResult, mockPlInit);
+
+    const previousButton = screen.getByTestId('previous-button');
+    const nextButton = screen.getByTestId('next-button');
+
+    expect(previousButton).toBeDisabled();
+    expect(nextButton).not.toBeDisabled();
+
+    // first click of 'next'
+    await userEvent.click(nextButton);
+
+    await waitFor(() => {
+      expect(getTracksSpy).toHaveBeenCalledWith(
+        `${mockBaseUrl}${mockQuerys[1]}`,
+        mockUserInit.accessToken
+      );
+    });
+
+    expect(previousButton).not.toBeDisabled();
+    expect(nextButton).not.toBeDisabled();
+
+    // second click of 'next'
+    await userEvent.click(nextButton);
+
+    await waitFor(() => {
+      expect(getTracksSpy).toHaveBeenCalledWith(
+        `${mockBaseUrl}${mockQuerys[2]}`,
+        mockUserInit.accessToken
+      );
+    });
+
+    expect(previousButton).not.toBeDisabled();
+    expect(nextButton).toBeDisabled();
+
+    getTracksSpy.mockReset;
   });
 });

@@ -1,5 +1,4 @@
 import { waitFor, render, screen } from '@testing-library/react';
-import { mocked } from 'ts-jest/utils';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import PlaylistContainer from './PlaylistContainer';
@@ -8,7 +7,7 @@ import UserProvider from '../../context/UserContext';
 import { PlaylistInitialValues, UserInitialValues } from '../../utils/types';
 import spotifyAPI from '../../utils/spotifyAPI';
 
-describe.only('PlaylistContainer', () => {
+describe('PlaylistContainer', () => {
   const mockTrackList = [
     {
       album: {
@@ -76,6 +75,11 @@ describe.only('PlaylistContainer', () => {
     expiresAt: null,
   };
 
+  jest.mock('../../utils/spotifyAPI');
+  const mockedSpotifyAPI = spotifyAPI as jest.Mocked<typeof spotifyAPI>;
+  const createPlaylistSpy = jest.spyOn(spotifyAPI, 'createPlaylist');
+  const addTracksSpy = jest.spyOn(spotifyAPI, 'addTracks');
+
   function renderPlaylistContainer(
     mockPlaylistInit: PlaylistInitialValues,
     mockUserInit: UserInitialValues
@@ -88,25 +92,6 @@ describe.only('PlaylistContainer', () => {
       </UserProvider>
     );
   }
-
-  let mockedSpotifyAPI: jest.Mocked<typeof spotifyAPI>;
-  let createPlaylistSpy: jest.SpyInstance<
-    Promise<any>,
-    [userId: string, accessToken: string | null, name: string],
-    any
-  >;
-
-  let addTracksSpy: jest.SpyInstance<
-    Promise<void | 'success' | 'failure'>,
-    [accessToken: string | null, playlistId: string, trackUris: string[]],
-    any
-  >;
-  beforeAll(() => {
-    jest.mock('../../utils/spotifyAPI');
-    mockedSpotifyAPI = spotifyAPI as jest.Mocked<typeof spotifyAPI>;
-    createPlaylistSpy = jest.spyOn(spotifyAPI, 'createPlaylist');
-    addTracksSpy = jest.spyOn(spotifyAPI, 'addTracks');
-  });
 
   it('updates playlist name with user input', async () => {
     const handleChange = jest.fn();
@@ -135,15 +120,8 @@ describe.only('PlaylistContainer', () => {
 
   describe('handles submitPlaylist', () => {
     beforeEach(() => {
-      const mockCreatePlaylist: Awaited<
-        ReturnType<typeof spotifyAPI.createPlaylist>
-      > = mockPlaylistId;
-
-      const mockAddTracks: Awaited<ReturnType<typeof spotifyAPI.addTracks>> =
-        'success';
-
-      mockedSpotifyAPI.createPlaylist.mockResolvedValue(mockCreatePlaylist);
-      mockedSpotifyAPI.addTracks.mockResolvedValue(mockAddTracks);
+      mockedSpotifyAPI.createPlaylist.mockResolvedValue(mockPlaylistId);
+      mockedSpotifyAPI.addTracks.mockResolvedValue('success');
     });
 
     it('posts to the spotify API when playlist is submitted', async () => {
@@ -185,6 +163,7 @@ describe.only('PlaylistContainer', () => {
         expect(screen.queryByDisplayValue(mockPlaylistName)).toBeNull();
       });
     });
+
     it('clears all the playlist tracks when playlist is submitted', async () => {
       const mockPlInit = {
         tracks: mockTrackList,
