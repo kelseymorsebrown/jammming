@@ -19,11 +19,13 @@ export interface Album {
 
 export interface TrackButton {
   label: string;
+  ariaLabel: string;
   callback: (track: TrackData) => void;
 }
 
 export interface NavButton {
   label: string;
+  ariaLabel: string;
   id: string;
   callback: (event: React.MouseEvent<HTMLButtonElement>) => void;
   enabled: boolean;

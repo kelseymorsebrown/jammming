@@ -29,6 +29,7 @@ function PlaylistContainer() {
 
   const removeButton: TrackButton = {
     label: '-',
+    ariaLabel: 'Remove Track',
     callback: removeTrack,
   };
 

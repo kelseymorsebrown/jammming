@@ -21,7 +21,9 @@ function Track({ track, trackButton }: AppProps) {
         </p>
       </div>
       <div className={styles.TrackButton}>
-        <button onClick={handleClick}>{trackButton.label}</button>
+        <button aria-label={trackButton.ariaLabel} onClick={handleClick}>
+          {trackButton.label}
+        </button>
       </div>
     </div>
   );

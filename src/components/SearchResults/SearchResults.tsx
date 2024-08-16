@@ -25,6 +25,7 @@ function SearchResults({
           <button
             onClick={prevButton.callback}
             name={prevButton.id}
+            aria-label={prevButton.ariaLabel}
             id={prevButton.id}
             data-testid={prevButton.id}
             disabled={!prevButton.enabled}
@@ -34,6 +35,7 @@ function SearchResults({
           <button
             onClick={nextButton.callback}
             name={nextButton.id}
+            aria-label={nextButton.ariaLabel}
             id={nextButton.id}
             data-testid={nextButton.id}
             disabled={!nextButton.enabled}

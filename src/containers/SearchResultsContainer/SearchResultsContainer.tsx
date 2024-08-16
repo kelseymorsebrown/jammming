@@ -29,6 +29,7 @@ function SearchResultsContainer() {
 
   const addButton: TrackButton = {
     label: '+',
+    ariaLabel: 'Add Track',
     callback: addTrack,
   };
 
@@ -58,6 +59,7 @@ function SearchResultsContainer() {
 
   const prevButton: NavButton = {
     label: '⏴',
+    ariaLabel: 'Previous',
     id: 'previous-button',
     callback: handlePrevClick,
     enabled: !!searchResults?.previous,
@@ -65,6 +67,7 @@ function SearchResultsContainer() {
 
   const nextButton: NavButton = {
     label: '⏵',
+    ariaLabel: 'Next',
     id: 'next-button',
     callback: handleNextClick,
     enabled: !!searchResults?.next,

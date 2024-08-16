@@ -30,5 +30,11 @@ h2 {
   }
   button:enabled {
     color: white;
+    text-shadow:
+      1px 1px 2px black,
+      1px 1px 0.3em black;
+  }
+  button:active:enabled {
+    font-size: 1em;
   }
 }

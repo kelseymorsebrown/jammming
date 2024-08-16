@@ -4,30 +4,30 @@ import '@testing-library/jest-dom';
 import Track from './Track';
 
 const mockTrack = {
-  "album": {
-    "id": "abgslw9425ew",
-    "name": "Foolbum",
-    "type": "album",
-    "artists": [
+  album: {
+    id: 'abgslw9425ew',
+    name: 'Foolbum',
+    type: 'album',
+    artists: [
       {
-        "id": "string",
-        "name": "Bartist",
-        "type": "artist",
-      }
-    ]
+        id: 'string',
+        name: 'Bartist',
+        type: 'artist',
+      },
+    ],
   },
-  "artists": [
+  artists: [
     {
-      "id": "string",
-      "name": "Bartist",
-      "type": "artist",
-    }
+      id: 'string',
+      name: 'Bartist',
+      type: 'artist',
+    },
   ],
-  "id": "string",
-  "uri": "spotify:track:string",
-  "name": "Right On",
-  "type": "track",
-}
+  id: 'string',
+  uri: 'spotify:track:string',
+  name: 'Right On',
+  type: 'track',
+};
 
 it('Displays the track name', async () => {
   render(
@@ -35,13 +35,14 @@ it('Displays the track name', async () => {
       track={mockTrack}
       trackButton={{
         label: '+',
-        callback: () => { }
+        ariaLabel: 'Add Track',
+        callback: () => {},
       }}
     />
   );
 
   expect(screen.getByText('Right On')).toBeInTheDocument();
-})
+});
 
 it('Displays the album name and artist', async () => {
   render(
@@ -49,13 +50,14 @@ it('Displays the album name and artist', async () => {
       track={mockTrack}
       trackButton={{
         label: '+',
-        callback: () => { }
+        ariaLabel: 'Add Track',
+        callback: () => {},
       }}
     />
   );
 
   expect(screen.getByText('Bartist, Foolbum')).toBeInTheDocument();
-})
+});
 
 it('should call the callback function when clicked', async () => {
   const handleClick = jest.fn();
@@ -65,16 +67,16 @@ it('should call the callback function when clicked', async () => {
       track={mockTrack}
       trackButton={{
         label: '+',
-        callback: handleClick
+        ariaLabel: 'Add Track',
+        callback: handleClick,
       }}
     />
   );
 
-  const button = screen.getByRole("button");
+  const button = screen.getByRole('button');
 
   await userEvent.click(button);
 
   expect(handleClick).toHaveBeenCalledTimes(1);
   expect(handleClick).toHaveBeenCalledWith(mockTrack);
-
-})
+});
