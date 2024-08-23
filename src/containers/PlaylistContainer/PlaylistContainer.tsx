@@ -29,6 +29,7 @@ function PlaylistContainer() {
 
   const removeButton: TrackButton = {
     label: '-',
+    ariaLabel: 'Remove Track',
     callback: removeTrack,
   };
 
@@ -46,9 +47,9 @@ function PlaylistContainer() {
       );
 
       if (result === 'success') {
-        alert(
-          `Your play list "${playlistName}" has been successfully saved to your Spotify account ${user?.displayName}`
-        );
+        // alert(
+        //   `Your play list "${playlistName}" has been successfully saved to your Spotify account ${user?.displayName}`
+        // );
         setPlaylistTracks([]);
         setPlaylistName('');
       }
@@ -68,7 +69,7 @@ function PlaylistContainer() {
   };
 
   return (
-    <div className={styles.colRight}>
+    <div className={styles.colRight} data-testid="playlist-container">
       <div className={styles.BufferRow} />
       <Playlist
         playlistName={playlistName}

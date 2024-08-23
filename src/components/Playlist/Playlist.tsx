@@ -38,7 +38,11 @@ function Playlist({
       ) : (
         <div />
       )}
-      <button onClick={onSubmit} data-testid="save-playlist-button">
+      <button
+        className={styles.SaveButton}
+        onClick={onSubmit}
+        data-testid="save-playlist-button"
+      >
         Save To Spotify
       </button>
     </div>

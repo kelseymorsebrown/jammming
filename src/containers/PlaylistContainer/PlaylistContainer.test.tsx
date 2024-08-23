@@ -1,8 +1,11 @@
 import { waitFor, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import '@testing-library/jest-dom';
 import PlaylistContainer from './PlaylistContainer';
 import PlaylistProvider from '../../context/PlaylistContext';
-import '@testing-library/jest-dom';
+import UserProvider from '../../context/UserContext';
+import { PlaylistInitialValues, UserInitialValues } from '../../utils/types';
+import spotifyAPI from '../../utils/spotifyAPI';
 
 describe('PlaylistContainer', () => {
   const mockTrackList = [
@@ -13,7 +16,7 @@ describe('PlaylistContainer', () => {
         type: 'album',
         artists: [
           {
-            id: 'string',
+            id: '1234ar',
             name: 'Example Artist',
             type: 'artist',
           },
@@ -21,12 +24,12 @@ describe('PlaylistContainer', () => {
       },
       artists: [
         {
-          id: 'string',
+          id: '1234ar',
           name: 'Example Artist',
           type: 'artist',
         },
       ],
-      id: 'string',
+      id: '5678tr',
       uri: 'spotify:track:string',
       name: 'Example Track Name',
       type: 'track',
@@ -38,7 +41,7 @@ describe('PlaylistContainer', () => {
         type: 'album',
         artists: [
           {
-            id: 'string',
+            id: '456892ar',
             name: 'Bartist',
             type: 'artist',
           },
@@ -46,7 +49,7 @@ describe('PlaylistContainer', () => {
       },
       artists: [
         {
-          id: 'string',
+          id: '456892ar',
           name: 'Bartist',
           type: 'artist',
         },
@@ -59,20 +62,46 @@ describe('PlaylistContainer', () => {
   ];
 
   const mockPlaylistName = 'Custom Playlist Title';
+  const mockPlaylistId = '12345abcd';
+  const mockURIs = mockTrackList.map((track) => track.uri);
+
+  const mockUserInit: UserInitialValues = {
+    isLoggedIn: true,
+    user: {
+      displayName: 'testUser',
+      id: 'abcd12345',
+    },
+    accessToken: 'efgh5678',
+    expiresAt: null,
+  };
+
+  jest.mock('../../utils/spotifyAPI');
+  const mockedSpotifyAPI = spotifyAPI as jest.Mocked<typeof spotifyAPI>;
+  const createPlaylistSpy = jest.spyOn(spotifyAPI, 'createPlaylist');
+  const addTracksSpy = jest.spyOn(spotifyAPI, 'addTracks');
+
+  function renderPlaylistContainer(
+    mockPlaylistInit: PlaylistInitialValues,
+    mockUserInit: UserInitialValues
+  ) {
+    render(
+      <UserProvider initialValues={mockUserInit}>
+        <PlaylistProvider initialValues={mockPlaylistInit}>
+          <PlaylistContainer />
+        </PlaylistProvider>
+      </UserProvider>
+    );
+  }
 
   it('updates playlist name with user input', async () => {
     const handleChange = jest.fn();
 
-    const plInit = {
+    const mockPlInit = {
       tracks: [],
       name: '',
     };
 
-    render(
-      <PlaylistProvider initialValues={plInit}>
-        <PlaylistContainer />
-      </PlaylistProvider>
-    );
+    renderPlaylistContainer(mockPlInit, mockUserInit);
 
     const input = screen.getByTestId('playlist-name');
 
@@ -89,72 +118,69 @@ describe('PlaylistContainer', () => {
     });
   });
 
-  it('calls handleSubmit when playlist is submitted', async () => {
-    const handleSubmit = jest.fn();
-
-    const plInit = {
-      tracks: mockTrackList,
-      name: '',
-    };
-
-    render(
-      <PlaylistProvider initialValues={plInit}>
-        <PlaylistContainer />
-      </PlaylistProvider>
-    );
-
-    const button = screen.getByTestId('save-playlist-button');
-    userEvent.click(button);
-
-    await waitFor(() => {
-      expect(handleSubmit).toHaveBeenCalled;
+  describe('handles submitPlaylist', () => {
+    beforeEach(() => {
+      mockedSpotifyAPI.createPlaylist.mockResolvedValue(mockPlaylistId);
+      mockedSpotifyAPI.addTracks.mockResolvedValue('success');
     });
-  });
 
-  it('clears the playlist name when playlist is submitted', async () => {
-    const plInit = {
-      tracks: mockTrackList,
-      name: '',
-    };
+    it('posts to the spotify API when playlist is submitted', async () => {
+      const mockPlInit = {
+        tracks: mockTrackList,
+        name: mockPlaylistName,
+      };
+      renderPlaylistContainer(mockPlInit, mockUserInit);
+      const submitButton = screen.getByTestId('save-playlist-button');
 
-    render(
-      <PlaylistProvider initialValues={plInit}>
-        <PlaylistContainer />
-      </PlaylistProvider>
-    );
+      userEvent.click(submitButton);
 
-    const input = screen.getByTestId('playlist-name');
-    const button = screen.getByTestId('save-playlist-button');
-
-    userEvent.type(input, mockPlaylistName);
-    userEvent.click(button);
-
-    await waitFor(() => {
-      const playlistName = screen.queryByDisplayValue(mockPlaylistName);
-      expect(playlistName).toBeNull();
+      await waitFor(() => {
+        expect(createPlaylistSpy).toHaveBeenCalledWith(
+          mockUserInit.user?.id,
+          mockUserInit.accessToken,
+          mockPlaylistName
+        );
+        expect(addTracksSpy).toHaveBeenCalledWith(
+          mockUserInit.accessToken,
+          mockPlaylistId,
+          mockURIs
+        );
+      });
     });
-  });
 
-  it('clears all the playlist tracks when playlist is submitted', async () => {
-    const plInit = {
-      tracks: mockTrackList,
-      name: '',
-    };
+    it('clears the playlist name when playlist is submitted', async () => {
+      const mockPlInit = {
+        tracks: mockTrackList,
+        name: mockPlaylistName,
+      };
+      renderPlaylistContainer(mockPlInit, mockUserInit);
+      const submitButton = screen.getByTestId('save-playlist-button');
 
-    render(
-      <PlaylistProvider initialValues={plInit}>
-        <PlaylistContainer />
-      </PlaylistProvider>
-    );
+      expect(screen.queryByDisplayValue(mockPlaylistName)).toBeInTheDocument;
 
-    expect(screen.queryByTestId(`track-${mockTrackList[0].id}`))
-      .toBeInTheDocument;
+      userEvent.click(submitButton);
+      await waitFor(() => {
+        expect(screen.queryByDisplayValue(mockPlaylistName)).toBeNull();
+      });
+    });
 
-    const button = screen.getByTestId('save-playlist-button');
-    userEvent.click(button);
+    it('clears all the playlist tracks when playlist is submitted', async () => {
+      const mockPlInit = {
+        tracks: mockTrackList,
+        name: mockPlaylistName,
+      };
 
-    await waitFor(() => {
-      expect(screen.queryByTestId(`track-${mockTrackList[0].id}`)).toBeNull;
+      renderPlaylistContainer(mockPlInit, mockUserInit);
+      const submitButton = screen.getByTestId('save-playlist-button');
+
+      expect(screen.queryByTestId(`track-${mockTrackList[0].id}`))
+        .toBeInTheDocument;
+
+      userEvent.click(submitButton);
+
+      await waitFor(() => {
+        expect(screen.queryByTestId(`track-${mockTrackList[0].id}`)).toBeNull();
+      });
     });
   });
 });

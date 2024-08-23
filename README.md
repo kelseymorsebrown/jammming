@@ -2,7 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) for CodeAcademy's [Create a Playlist App with the Spotify API](https://www.codecademy.com/projects/portfolio/jammming-react18) portfolio project.
 
-For an additional challenge, I chose to write it in TypeScript.
+Where I varied from the project/course as written:
+
+- I chose to use TypeScript rather than JavaScript to give myself an additional challenge.
+- At the suggestion of my mentor, I used React Contexts to handle state rather than passing props down through a lengthy chain of components.
 
 ## Available Scripts
 

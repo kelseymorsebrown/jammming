@@ -61,6 +61,7 @@ it('Displays the first track', async () => {
       tracks={mockTrackList}
       trackButton={{
         label: '-',
+        ariaLabel: 'Remove Track',
         callback: () => {},
       }}
     />
@@ -74,6 +75,7 @@ it('Displays the second track', async () => {
       tracks={mockTrackList}
       trackButton={{
         label: '-',
+        ariaLabel: 'Remove Track',
         callback: () => {},
       }}
     />
