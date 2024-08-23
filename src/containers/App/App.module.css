@@ -20,20 +20,6 @@
   font-size: calc(15px + 2vmin);
 }
 
-.ResultsWrapper {
-  display: flex;
-  justify-content: space-evenly;
-  height: 100%;
-}
-
-.main {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  min-height: auto;
-  flex: 1 0 auto;
-}
-
 .footer {
   display: flex;
   text-align: center;
@@ -46,10 +32,10 @@
 input[type='submit']:hover:enabled,
 button:hover:enabled {
   cursor: pointer;
-  color: grey;
 }
 
 input[type='submit']:active:enabled,
 button:active:enabled {
   font-size: 0.6em;
+  /* transform: translate(2px, 2px); */
 }
