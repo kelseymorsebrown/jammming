@@ -38,29 +38,54 @@ describe('SearchResults', () => {
     expect(screen.getByText('Results')).toBeInTheDocument();
   });
 
-  it('Renders previous buttons', () => {
+  it('Renders enabled previous buttons when enabled is true', () => {
     render(
       <SearchResults
         tracks={[]}
         trackButton={mockTracksButton}
         prevButton={{ ...mockPrevButton, enabled: true }}
-        nextButton={{ ...mockNextButton, enabled: true }}
+        nextButton={{ ...mockNextButton, enabled: false }}
       />
     );
 
-    expect(screen.getByLabelText(mockPrevButton.ariaLabel)).toBeInTheDocument();
+    expect(screen.getByLabelText(mockPrevButton.ariaLabel)).not.toBeDisabled();
   });
 
-  it('Renders next button', () => {
+  it('Renders disabled previous button when enabled is false', () => {
+    render(
+      <SearchResults
+        tracks={[]}
+        trackButton={mockTracksButton}
+        prevButton={{ ...mockPrevButton, enabled: false }}
+        nextButton={{ ...mockNextButton, enabled: true }}
+      />
+    );
+
+    expect(screen.getByLabelText(mockPrevButton.ariaLabel)).toBeDisabled();
+  });
+
+  it('Renders enabled next button when enabled is true', () => {
+    render(
+      <SearchResults
+        tracks={[]}
+        trackButton={mockTracksButton}
+        prevButton={{ ...mockPrevButton, enabled: false }}
+        nextButton={{ ...mockNextButton, enabled: true }}
+      />
+    );
+    expect(screen.getByLabelText(mockNextButton.ariaLabel)).not.toBeDisabled();
+  });
+
+  it('Renders disabled next button when enabled is false', () => {
     render(
       <SearchResults
         tracks={[]}
         trackButton={mockTracksButton}
         prevButton={{ ...mockPrevButton, enabled: true }}
-        nextButton={{ ...mockNextButton, enabled: true }}
+        nextButton={{ ...mockNextButton, enabled: false }}
       />
     );
-    expect(screen.getByLabelText(mockNextButton.ariaLabel)).toBeInTheDocument();
+    expect(screen.getByLabelText(mockNextButton.ariaLabel)).toBeDisabled();
   });
 
   it('Renders the search results', () => {

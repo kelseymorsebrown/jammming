@@ -129,7 +129,8 @@ describe('SearchResultsContainer', () => {
 
     expect(screen.queryByTestId('search-error')).toBeInTheDocument();
   });
-  it.only('calls the spotify API getTracks with correct endpoint when next is clicked', async () => {
+
+  it('calls the spotify API getTracks with correct endpoint when next is clicked', async () => {
     const mockBaseUrl = 'https://api.spotify.com/v1/search?';
 
     const mockQuerys = [
@@ -166,14 +167,11 @@ describe('SearchResultsContainer', () => {
         next: null,
       });
 
-    // initial render
+    // initial render as if on the first page of results
     renderSearchResultsContainer(mockUserInit, mockInitResult, mockPlInit);
 
     const previousButton = screen.getByTestId('previous-button');
     const nextButton = screen.getByTestId('next-button');
-
-    expect(previousButton).toBeDisabled();
-    expect(nextButton).not.toBeDisabled();
 
     // first click of 'next'
     await userEvent.click(nextButton);
@@ -185,8 +183,10 @@ describe('SearchResultsContainer', () => {
       );
     });
 
-    expect(previousButton).not.toBeDisabled();
-    expect(nextButton).not.toBeDisabled();
+    // await re-render w/enabled previous button before clicking 'next' button again
+    await waitFor(() => {
+      expect(previousButton).not.toBeDisabled();
+    });
 
     // second click of 'next'
     await userEvent.click(nextButton);
@@ -198,8 +198,76 @@ describe('SearchResultsContainer', () => {
       );
     });
 
-    expect(previousButton).not.toBeDisabled();
-    expect(nextButton).toBeDisabled();
+    getTracksSpy.mockReset;
+  });
+
+  it('calls the spotify API getTracks with correct endpoint when previous is clicked', async () => {
+    const mockBaseUrl = 'https://api.spotify.com/v1/search?';
+
+    const mockQuerys = [
+      'query=test&type=track&offset=0&limit=2',
+      'query=test&type=track&offset=2&limit=2',
+      'query=test&type=track&offset=4&limit=2',
+    ];
+
+    const mockInitResult = {
+      ...mockSerResInit,
+      results: {
+        ...mockSerResInit.results,
+        previous: `${mockBaseUrl}${mockQuerys[1]}`,
+      },
+    };
+
+    mockedSpotifyAPI.getTracks
+      .mockResolvedValue({
+        trackList: mockTrackList,
+        total: 6,
+        previous: `${mockBaseUrl}${mockQuerys[1]}`,
+        next: null,
+      })
+      .mockResolvedValueOnce({
+        trackList: mockTrackList,
+        total: 6,
+        previous: `${mockBaseUrl}${mockQuerys[0]}`,
+        next: `${mockBaseUrl}${mockQuerys[2]}`,
+      })
+      .mockResolvedValueOnce({
+        trackList: mockTrackList,
+        total: 6,
+        previous: null,
+        next: `${mockBaseUrl}${mockQuerys[1]}`,
+      });
+
+    // initial render as if on the last page of results
+    renderSearchResultsContainer(mockUserInit, mockInitResult, mockPlInit);
+
+    const previousButton = screen.getByTestId('previous-button');
+    const nextButton = screen.getByTestId('next-button');
+
+    // first click of 'previous'
+    await userEvent.click(previousButton);
+
+    await waitFor(() => {
+      expect(getTracksSpy).toHaveBeenCalledWith(
+        `${mockBaseUrl}${mockQuerys[1]}`,
+        mockUserInit.accessToken
+      );
+    });
+
+    // await re-render w/enabled next button before clicking 'previous' button again
+    await waitFor(() => {
+      expect(nextButton).not.toBeDisabled();
+    });
+
+    // second click of 'previous'
+    await userEvent.click(previousButton);
+
+    await waitFor(() => {
+      expect(getTracksSpy).toHaveBeenCalledWith(
+        `${mockBaseUrl}${mockQuerys[0]}`,
+        mockUserInit.accessToken
+      );
+    });
 
     getTracksSpy.mockReset;
   });

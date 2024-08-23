@@ -53,15 +53,13 @@ const SearchProvider: React.FC<{
     const results = await spotifyAPI.getTracks(endpoint, accessToken);
 
     if (results?.trackList) {
-      await setSearchResults(results);
+      setSearchResults(results);
     }
 
     if (!searchResults) {
       setErrorMessage(`Something went wrong. Please try again.`);
     } else {
       setErrorMessage(null);
-      console.log(`state next: ${searchResults.next}`);
-      console.log('results next: ', results?.next);
     }
     return;
   };
