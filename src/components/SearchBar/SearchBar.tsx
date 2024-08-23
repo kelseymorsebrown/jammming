@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './SearchBar.module.css';
+import mainStyles from '../../containers/MainContainer/MainContainer.module.css';
 import { SearchContext } from '../../context/SearchContext';
 import { SearchContextType, UserContextType } from '../../utils/types';
 import { UserContext } from '../../context/UserContext';
@@ -19,7 +20,9 @@ function SearchBar() {
   const handleSearchTermChange = (e: React.FormEvent<HTMLInputElement>) =>
     setSearchTerm(e.currentTarget.value);
 
-  const handleSubmit = (event: React.MouseEvent<HTMLInputElement>) => {
+  const handleSubmit = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     event.preventDefault();
 
     if (searchTerm === '') {
@@ -46,12 +49,14 @@ function SearchBar() {
           data-testid="search-input"
           value={searchTerm}
         />
-        <input
+        <button
           type="submit"
-          value="Search"
           data-testid="search-button"
           onClick={handleSubmit}
-        />
+          className={mainStyles.FunkyButton}
+        >
+          Search
+        </button>
       </form>
     </div>
   );

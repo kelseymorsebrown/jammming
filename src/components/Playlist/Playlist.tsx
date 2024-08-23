@@ -1,5 +1,6 @@
 import React, { useState, MouseEvent } from 'react';
 import styles from './Playlist.module.css';
+import mainStyles from '../../containers/MainContainer/MainContainer.module.css';
 import { TrackData, TrackButton } from '../../utils/types';
 import Tracklist from '../Tracklist/Tracklist';
 
@@ -39,7 +40,7 @@ function Playlist({
         <div />
       )}
       <button
-        className={styles.SaveButton}
+        className={mainStyles.FunkyButton}
         onClick={onSubmit}
         data-testid="save-playlist-button"
       >

@@ -1,0 +1,72 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: auto;
+  flex: 1 0 auto;
+}
+
+.ResultsWrapper {
+  display: flex;
+  justify-content: space-evenly;
+  height: 100%;
+}
+
+/* CSS from https://getcssscan.com/css-buttons-examples */
+.FunkyButton {
+  background-color: #3dd1e7;
+  border: 0 solid #e5e7eb;
+  box-sizing: border-box;
+  box-shadow:
+    rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px;
+  color: #000000;
+  font-weight: 700;
+  padding: 0.5rem 0.75rem 0.75rem 1rem;
+  position: relative;
+  text-align: center;
+  min-width: 100px;
+  max-width: 460px;
+  position: relative;
+  transition:
+    box-shadow 0.15s,
+    transform 0.15s;
+  transform: rotate(-2deg);
+  touch-action: manipulation;
+  margin-top: 0.5rem;
+  will-change: box-shadow, transform;
+  margin-bottom: 1em;
+}
+
+.FunkyButton:focus {
+  outline: 0;
+  box-shadow:
+    rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px;
+}
+
+.FunkyButton:hover {
+  box-shadow:
+    rgba(45, 35, 66, 0.4) 0 4px 8px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px;
+  transform: translateY(-2px) rotate(-2deg);
+}
+
+.FunkyButton:active {
+  box-shadow: #0a584b 0 3px 7px inset;
+  transform: translateY(2px) rotate(-2deg);
+}
+
+.FunkyButton:after {
+  content: '';
+  position: absolute;
+  border: 1px solid #000000;
+  bottom: 4px;
+  left: 4px;
+  width: calc(100% - 1px);
+  height: calc(100% - 1px);
+}
+
+.FunkyButton:hover:after {
+  bottom: 2px;
+  left: 2px;
+}
