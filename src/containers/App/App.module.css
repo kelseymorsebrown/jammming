@@ -14,10 +14,19 @@
   color: white;
   padding: 10px;
   height: calc(50px + 4vmin);
+  box-shadow:
+    /* outer SD */
+    hsla(22, 80%, 5%, 0.6) 3px 3px 10px 3px,
+    hsla(22, 80%, 5%, 0.4) 5px 5px 10px 8px,
+    /* outer HL */ hsla(33, 59%, 50%, 0.3) 0px 6px 15px 11px,
+    /* outer HL */ hsla(33, 59%, 50%, 0.4) 0px 5px 15px 11px;
 }
 
 .header h1 {
-  font-size: calc(15px + 2vmin);
+  font-family: 'Oleo Script Swash Caps', system-ui;
+  font-weight: 700;
+  font-style: normal;
+  font-size: calc(20px + 3vmin);
 }
 
 .footer {
@@ -27,6 +36,38 @@
   justify-content: space-around;
   width: 100%;
   height: 2.5rem;
+  font-family: 'Fredoka', sans-serif;
+  background-color: hsl(203, 9%, 82%);
+  background-image: linear-gradient(
+    hsl(203, 9%, 20%) 0%,
+    hsl(203, 9%, 30%) 5%,
+    hsl(203, 9%, 80%) 40%,
+    hsl(203, 9%, 60%) 60%,
+    hsl(203, 9%, 50%) 75%,
+    hsl(203, 9%, 60%) 90%,
+    hsl(203, 9%, 80%)
+  );
+  /* -webkit-repeating-linear-gradient(
+      left,
+      #ffffff00 0%,
+      #ffffff00 1.5%,
+      #ffffff1a 1.875%
+    ),
+    -webkit-repeating-linear-gradient(left, #00000000 0%, #00000000 1%, #00000008
+          1.875%),
+    -webkit-repeating-linear-gradient(left, #ffffff00 0%, #ffffff00 0.3%, #ffffff26
+          0.55%),
+    linear-gradient(
+      180deg,
+      hsl(240, 1%, 85%) 0%,
+      hsl(0, 0%, 90%) 15%,
+      hsl(240, 1%, 85%) 30%,
+      hsl(0, 0%, 78%) 45%,
+      hsl(240, 2%, 76%) 60%,
+      hsl(0, 0%, 70%) 70%,
+      hsl(240, 2%, 76%) 80%,
+      hsl(0, 0%, 78%) 100%
+    ); */
 }
 
 input[type='submit']:hover:enabled,
@@ -34,8 +75,19 @@ button:hover:enabled {
   cursor: pointer;
 }
 
-input[type='submit']:active:enabled,
-button:active:enabled {
-  font-size: 0.6em;
-  /* transform: translate(2px, 2px); */
+/* https://css-tricks.com/how-to-create-neon-text-with-css/ */
+
+.glow {
+  font-size: 80px;
+  color: #fff;
+  text-align: center;
+  text-shadow:
+    /* White glow */
+    0 0 1px #fff,
+    0 0 3px #fff,
+    /* 0 0 5px #fff, */ /* Green glow */ 0 0 22px #0fa,
+    0 0 32px #0fa,
+    0 0 42px #0fa,
+    0 0 52px #0fa,
+    0 0 82px #0fa;
 }

@@ -1,46 +1,147 @@
 .Track {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  color: aliceblue;
-  border: 2px solid;
-  border-color: black;
-  margin: 5px;
-  padding: 10px;
+  color: black;
+  padding: 5px;
+  position: relative;
+}
+
+.leftCol {
+  flex-direction: row;
+  align-items: left;
+}
+
+.rightCol {
+  flex-direction: row-reverse;
+  align-items: right;
 }
 
 .TrackInfo {
-  text-align: left;
-  h4 {
-    margin: 0;
-  }
-
+  text-align: center;
+  outline: none;
+  margin: 1em;
+  padding: 0.75em;
+  transition: color 0.2s;
+  flex-basis: 75%;
+  flex-grow: 0;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background-image: radial-gradient(at 20% 0%, #f2eecb 0, #cfbe82 100%);
+  box-shadow:
+    /* outer SD */
+    hsla(0, 0%, 0%, 0.4) 0 -1px 3px 3px,
+    /* outer HL */ hsla(0, 0%, 100%, 0.4) 2px 3px 3px 7px,
+    /* outer HL */ hsla(0, 0%, 100%, 0.9) 0 1px 2px 2px,
+    /*inner SD*/ hsla(39, 66%, 13%, 0.4) 3px 3px 7px inset;
   p {
     margin: 0;
-    margin-top: 0.5em;
-    font-size: 0.75em;
+    font-size: 1em;
+    padding: 0.25em;
+    line-height: 1.5em;
   }
+}
+
+.trackName {
+  padding-top: 0.75em;
+  padding-bottom: 0.5em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.artistContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.Artist {
+  position: relative;
+  width: 80%;
+  height: 40px;
+  border: solid #7d1211;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.leftArrow {
+  width: 0;
+  height: 0;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent; /* 40px height (20+20) */
+  border-right: 20px solid #7d1211;
+  position: absolute;
+  right: -2px;
+  /* transform: skew(45deg, 0deg);
+  border-left: 1px solid #d68a3a;
+  border-right: 1px solid #d68a3a;
+  border-top: 1px solid #d68a3a; */
+}
+
+.rightArrow {
+  width: 0;
+  height: 0;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent; /* 40px height (20+20) */
+  border-left: 20px solid #7d1211;
+  position: absolute;
+  left: -2px;
+  /* transform: skew(-45deg, 0deg);
+  border-left: 1px solid #d68a3a;
+  border-right: 1px solid #d68a3a;
+  border-bottom: 1px solid #d68a3a; */
+}
+
+.block {
+  height: 10px;
+  background-color: #7d1211;
+  width: 10%;
 }
 
 .TrackButton {
   display: flex;
-  text-align: right;
   align-items: center;
+  flex-basis: 10%;
+  flex-grow: 0;
+  flex-shrink: 0;
+  margin: auto;
 
-  button {
-    border: 0px;
-    background-color: transparent;
-    font-size: 1.5em;
-    font-weight: bold;
-    padding: 10px;
+  .orangeBtn:enabled {
+    color: #000000;
+    background: linear-gradient(to top, #642306 0%, #82310d 6px);
+    border-radius: 5px;
+    height: 50px;
+    width: 50px;
   }
 
-  button:hover {
-    cursor: pointer;
-    color: grey;
+  .orangeBtnFront {
+    background: linear-gradient(to bottom right, #fcae1e, #dd571c) padding-box;
+    text-shadow:
+      0 -2px 0 #9e3f16,
+      0 1px 1px #fcae1e;
+    border-top-color: #faca71;
+    border-bottom-color: #faca71;
+    font-size: 2em;
+    font-weight: 700;
+    height: 50px;
+    width: 50px;
   }
 
-  button:active {
-    font-size: 1em;
+  .orangeBtn:active .orangeBtnFront {
+    color: white;
+    text-shadow:
+      0 -2px 0 #dd571c,
+      0 1px 1px #fcae1e,
+      0 0 4px white;
+  }
+
+  .orangeBtn:hover .orangeBtnFront {
+    color: white;
+    text-shadow:
+      0 -2px 0 #dd571c,
+      0 1px 1px #fcae1e,
+      0 0 4px white;
   }
 }

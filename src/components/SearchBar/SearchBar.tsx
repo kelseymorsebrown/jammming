@@ -41,6 +41,7 @@ function SearchBar() {
     <div className={styles.SearchBar}>
       <form>
         <input
+          className={mainStyles.insetBrownBG}
           type="search"
           name="term"
           id="term"
@@ -53,9 +54,9 @@ function SearchBar() {
           type="submit"
           data-testid="search-button"
           onClick={handleSubmit}
-          className={mainStyles.FunkyButton}
+          className={`${mainStyles.pushable} ${mainStyles.yellowBtn} ${mainStyles.insetBrownBG}`}
         >
-          Search
+          <span className={mainStyles.front}>Search</span>
         </button>
       </form>
     </div>

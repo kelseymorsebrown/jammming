@@ -15,7 +15,7 @@ function App() {
   return (
     <div className={styles.App}>
       <UserProvider initialValues={userInitialValues}>
-        <header className={styles.header}>
+        <header className={`${styles.header} ${styles.glow}`}>
           <h1>Jammming</h1>
         </header>
         <MainContainer />

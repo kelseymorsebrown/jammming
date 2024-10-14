@@ -87,11 +87,11 @@ function LoginContainer() {
       ) : (
         <button
           id="login-button"
-          className={mainStyles.FunkyButton}
+          className={`${mainStyles.pushable} ${mainStyles.yellowBtn} ${mainStyles.insetBrownBG}`}
           data-testid="login-button"
           onClick={handleLogin}
         >
-          Log in with Spotify
+          <span className={mainStyles.front}>Log in with Spotify</span>
         </button>
       )}
     </div>

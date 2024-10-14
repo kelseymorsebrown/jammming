@@ -3,15 +3,26 @@
   margin-bottom: 5px;
   padding-left: 30%;
   padding-right: 30%;
-}
 
-form {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+  form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-input {
-  width: 70%;
-  height: 2em;
+  input {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 13pt;
+    width: 70%;
+    height: 35px;
+    border-radius: 5px;
+    text-align: center;
+    border: none;
+    outline: none;
+    background-image: radial-gradient(
+      at 20% 0%,
+      hsl(31, 100%, 95%) 0,
+      hsl(39, 76%, 83%) 100%
+    );
+  }
 }

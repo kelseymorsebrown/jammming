@@ -11,7 +11,7 @@ it('Displays the playlist submit button', async () => {
       hasTracks={false}
       tracks={[]}
       trackButton={{
-        label: '-',
+        label: '﹣',
         ariaLabel: 'Remove Track',
         callback: () => {},
       }}
@@ -31,7 +31,7 @@ it('Displays the placeholder playlist name when no playlist name', async () => {
       hasTracks={false}
       tracks={[]}
       trackButton={{
-        label: '-',
+        label: '﹣',
         ariaLabel: 'Remove Track',
         callback: () => {},
       }}
@@ -52,7 +52,7 @@ it('Displays the playlist name when it exists', async () => {
       hasTracks={false}
       tracks={[]}
       trackButton={{
-        label: '-',
+        label: '﹣',
         ariaLabel: 'Remove Track',
         callback: () => {},
       }}
@@ -100,7 +100,7 @@ it('Renders tracks when hasTracks is true', async () => {
       hasTracks={true}
       tracks={mockTrackList}
       trackButton={{
-        label: '-',
+        label: '﹣',
         ariaLabel: 'Remove Track',
         callback: () => {},
       }}
@@ -149,7 +149,7 @@ it('Renders no tracks when hasTracks is false', async () => {
       hasTracks={false}
       tracks={mockTrackList}
       trackButton={{
-        label: '-',
+        label: '﹣',
         ariaLabel: 'Remove Track',
         callback: () => {},
       }}

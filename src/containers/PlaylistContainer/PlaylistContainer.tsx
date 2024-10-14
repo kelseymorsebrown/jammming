@@ -8,6 +8,7 @@ import Playlist from '../../components/Playlist/Playlist';
 import { PlaylistContext } from '../../context/PlaylistContext';
 import { UserContext } from '../../context/UserContext';
 import styles from './PlaylistContainer.module.css';
+import mainStyles from '../MainContainer/MainContainer.module.css';
 import spotifyAPI from '../../utils/spotifyAPI';
 
 function PlaylistContainer() {
@@ -28,7 +29,7 @@ function PlaylistContainer() {
     setPlaylistName(e.currentTarget.value);
 
   const removeButton: TrackButton = {
-    label: '-',
+    label: '﹣',
     ariaLabel: 'Remove Track',
     callback: removeTrack,
   };
@@ -69,7 +70,10 @@ function PlaylistContainer() {
   };
 
   return (
-    <div className={styles.colRight} data-testid="playlist-container">
+    <div
+      className={`${mainStyles.colRight} ${mainStyles.ColumnWrapper}`}
+      data-testid="playlist-container"
+    >
       <div className={styles.BufferRow} />
       <Playlist
         playlistName={playlistName}
