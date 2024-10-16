@@ -41,10 +41,10 @@ it('Displays the track name', async () => {
     />
   );
 
-  expect(screen.getByText('Right On')).toBeInTheDocument();
+  expect(screen.getByText(`"Right On"`)).toBeInTheDocument();
 });
 
-it('Displays the album name and artist', async () => {
+it('Displays the artist', async () => {
   render(
     <Track
       track={mockTrack}
@@ -56,7 +56,7 @@ it('Displays the album name and artist', async () => {
     />
   );
 
-  expect(screen.getByText('Bartist, Foolbum')).toBeInTheDocument();
+  expect(screen.getByText('Bartist')).toBeInTheDocument();
 });
 
 it('should call the callback function when clicked', async () => {

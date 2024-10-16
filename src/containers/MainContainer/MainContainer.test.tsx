@@ -114,7 +114,7 @@ describe('MainContainer', () => {
     userEvent.click(button);
 
     await waitFor(() => {
-      expect(screen.getByText('Example Track Name')).toBeInTheDocument();
+      expect(screen.getByText(`"Example Track Name"`)).toBeInTheDocument();
     });
   });
 

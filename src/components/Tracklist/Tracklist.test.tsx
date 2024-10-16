@@ -67,7 +67,7 @@ it('Displays the first track', async () => {
     />
   );
 
-  expect(screen.getByText('Example Track Name')).toBeInTheDocument();
+  expect(screen.getByText(`"Example Track Name"`)).toBeInTheDocument();
 });
 it('Displays the second track', async () => {
   render(
@@ -81,5 +81,5 @@ it('Displays the second track', async () => {
     />
   );
 
-  expect(screen.getByText('Right On')).toBeInTheDocument();
+  expect(screen.getByText(`"Right On"`)).toBeInTheDocument();
 });
