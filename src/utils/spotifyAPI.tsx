@@ -1,4 +1,3 @@
-import { json } from 'stream/consumers';
 import { CLIENT_ID, REDIRECT_URI } from './consts';
 import { TrackData, Artist, Album } from './types';
 
@@ -6,11 +5,11 @@ import { TrackData, Artist, Album } from './types';
  * Generates a random string containing numbers and letters
  */
 function generateRandomString(length: number): string {
-  var text = '';
-  var possible =
+  let text = '';
+  const possible =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
-  for (var i = 0; i < length; i++) {
+  for (let i = 0; i < length; i++) {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
   }
   return text;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './MainContainer.module.css';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import SearchProvider from '../../context/SearchContext';

@@ -4,7 +4,6 @@ import SearchErrorMessage from '../../components/SearchErrorMessage/SearchErrorM
 import { SearchContext } from '../../context/SearchContext';
 import { PlaylistContext } from '../../context/PlaylistContext';
 import { UserContext } from '../../context/UserContext';
-import styles from './SearchResultsContainer.module.css';
 import mainStyles from '../MainContainer/MainContainer.module.css';
 
 // Import Types

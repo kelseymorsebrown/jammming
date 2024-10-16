@@ -1,7 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import Tracklist from './Tracklist';
 import '@testing-library/jest-dom';
+import React from 'react';
 
+/* eslint-disable no-empty-function, @typescript-eslint/no-empty-function */
 const mockTrackList = [
   {
     album: {
@@ -67,7 +69,7 @@ it('Displays the first track', async () => {
     />
   );
 
-  expect(screen.getByText(`"Example Track Name"`)).toBeInTheDocument();
+  expect(screen.getByText(`“Example Track Name”`)).toBeInTheDocument();
 });
 it('Displays the second track', async () => {
   render(
@@ -81,5 +83,6 @@ it('Displays the second track', async () => {
     />
   );
 
-  expect(screen.getByText(`"Right On"`)).toBeInTheDocument();
+  expect(screen.getByText(`“Right On”`)).toBeInTheDocument();
 });
+/* eslint-enable no-empty-function, @typescript-eslint/no-empty-function */

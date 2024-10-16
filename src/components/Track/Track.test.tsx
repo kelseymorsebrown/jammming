@@ -2,6 +2,9 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import Track from './Track';
+import React from 'react';
+
+/* eslint-disable no-empty-function, @typescript-eslint/no-empty-function */
 
 const mockTrack = {
   album: {
@@ -41,7 +44,7 @@ it('Displays the track name', async () => {
     />
   );
 
-  expect(screen.getByText(`"Right On"`)).toBeInTheDocument();
+  expect(screen.getByText(`“Right On”`)).toBeInTheDocument();
 });
 
 it('Displays the artist', async () => {
@@ -80,3 +83,4 @@ it('should call the callback function when clicked', async () => {
   expect(handleClick).toHaveBeenCalledTimes(1);
   expect(handleClick).toHaveBeenCalledWith(mockTrack);
 });
+/* eslint-enable no-empty-function, @typescript-eslint/no-empty-function */

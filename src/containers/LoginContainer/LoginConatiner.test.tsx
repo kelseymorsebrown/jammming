@@ -1,12 +1,14 @@
+import React from 'react';
 import { waitFor, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import LoginContainer from './LoginContainer';
 import UserProvider from '../../context/UserContext';
 import spotifyAPI from '../../utils/spotifyAPI';
 import '@testing-library/jest-dom';
+/* eslint-disable no-empty-function, @typescript-eslint/no-empty-function */
 
 describe('LoginContainer', () => {
-  let originalWindowLocation = window.location;
+  const originalWindowLocation = window.location;
 
   beforeEach(() => {
     Object.defineProperty(window, 'location', {
@@ -142,3 +144,4 @@ describe('LoginContainer', () => {
     });
   });
 });
+/* eslint-enable no-empty-function, @typescript-eslint/no-empty-function */

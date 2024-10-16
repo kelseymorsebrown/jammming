@@ -6,7 +6,7 @@ export function getHashParams() {
     [key: string]: string;
   };
 
-  let hashParams: HashParams = {};
+  const hashParams: HashParams = {};
 
   let e;
   const r = /([^&;=]+)=?([^&;]*)/g;
@@ -26,7 +26,7 @@ export function getQueryParams() {
     [key: string]: string;
   };
 
-  let queryParams: QueryParams = {};
+  const queryParams: QueryParams = {};
 
   let e;
   const r = /([^&;=]+)=?([^&;]*)/g;

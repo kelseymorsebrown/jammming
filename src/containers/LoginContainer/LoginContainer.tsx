@@ -26,6 +26,7 @@ function LoginContainer() {
     return;
   };
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     const params =
       JSON.stringify(getHashParams()) === '{}'
@@ -50,6 +51,7 @@ function LoginContainer() {
     window.history.pushState({}, document.title, '/');
   }, []);
 
+  /* eslint-enable react-hooks/exhaustive-deps */
   async function getUserData() {
     const userResponse = await spotifyAPI.getUser(stateKey, accessToken);
 

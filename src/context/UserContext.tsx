@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useState } from 'react';
 import { UserContextType, UserInitialValues } from '../utils/types';
 
 export const UserContext = createContext<UserContextType | null>(null);

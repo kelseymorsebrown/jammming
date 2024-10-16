@@ -12,6 +12,10 @@ import {
 } from '../../utils/types';
 import UserProvider from '../../context/UserContext';
 
+import React from 'react';
+
+/* eslint-disable no-empty-function, @typescript-eslint/no-empty-function */
+
 describe('SearchResultsContainer', () => {
   const mockTrackList = [
     {
@@ -115,7 +119,7 @@ describe('SearchResultsContainer', () => {
   it('renders the search results component when there are results', () => {
     renderSearchResultsContainer(mockUserInit, mockSerResInit, mockPlInit);
 
-    expect(screen.queryByTestId('search-results')).toBeInTheDocument();
+    expect(screen.getByTestId('search-results')).toBeInTheDocument();
   });
 
   it('renders the error component when there are no search results', () => {
@@ -127,7 +131,7 @@ describe('SearchResultsContainer', () => {
 
     renderSearchResultsContainer(mockUserInit, mockResult, mockPlInit);
 
-    expect(screen.queryByTestId('search-error')).toBeInTheDocument();
+    expect(screen.getByTestId('search-error')).toBeInTheDocument();
   });
 
   it('calls the spotify API getTracks with correct endpoint when next is clicked', async () => {
@@ -272,3 +276,5 @@ describe('SearchResultsContainer', () => {
     getTracksSpy.mockReset;
   });
 });
+
+/* eslint-enable no-empty-function, @typescript-eslint/no-empty-function */
