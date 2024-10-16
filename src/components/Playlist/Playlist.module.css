@@ -1,49 +1,50 @@
 .Playlist {
-  display: block;
-  overflow: hidden;
+  /* display: block; */
+  /* overflow: hidden; */
   text-align: center;
 }
 
-.SaveButton {
-  padding: 0.5em;
-}
-
-.PlaylistName {
+.PlaylistSubhead {
   display: flex;
-  border-style: solid;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  border-bottom-width: 2px;
   margin-left: 5px;
   margin-right: 5px;
   margin-top: 0.83em;
-  margin-bottom: 0.83em;
-
-  input {
-    background-color: transparent;
-    color: white;
-    font-weight: bold;
-    border-width: 0;
-    width: 100%;
-    font-size: calc(10px + 1.5vmin);
-    padding: 0;
-  }
+  flex-direction: column;
+  align-items: center;
 
   h2 {
+    font-family: 'Oleo Script Swash Caps', system-ui;
+    color: black;
+    font-size: 24pt;
+    font-weight: bold;
+    height: 35px;
+    border: none;
     margin: 0;
+    transform: translateY(-2px);
   }
+}
 
-  input::placeholder {
-    color: white;
-    opacity: 0.5;
-  }
+input.PlaylistName {
+  font-family: 'Oleo Script Swash Caps', system-ui;
+  color: hsl(44, 85%, 97%);
+  font-size: 24pt;
+  font-weight: 300;
+  height: 35px;
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  text-align: center;
+}
 
-  input:focus {
-    background-color: rgba(0, 0, 0, 0.25);
-  }
+input.PlaylistName::placeholder {
+  color: hsl(44, 85%, 97%);
+  opacity: 0.5;
+}
 
-  input:focus-visible {
-    outline: none;
-  }
+input.PlaylistName:focus {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+input.PlaylistName:focus-visible {
+  outline: none;
 }

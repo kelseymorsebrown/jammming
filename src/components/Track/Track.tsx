@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Track.module.css';
+import mainStyles from '../../containers/MainContainer/MainContainer.module.css';
 import { TrackData, TrackButton } from '../../utils/types';
 
 type AppProps = {
@@ -13,16 +14,33 @@ function Track({ track, trackButton }: AppProps) {
   };
 
   return (
-    <div className={styles.Track} data-testid={`track-${track.id}`}>
+    <div
+      className={`${styles.Track} ${
+        trackButton.ariaLabel == 'Add Track' ? styles.leftCol : styles.rightCol
+      }`}
+      data-testid={`track-${track.id}`}
+    >
       <div className={styles.TrackInfo}>
-        <h4>{track.name}</h4>
-        <p>
-          {track.artists[0].name}, {track.album.name}
-        </p>
+        <h4 className={styles.trackName}>"{track.name}"</h4>
+        <div className={styles.artistContainer}>
+          <div className={styles.block} />
+          <div className={styles.Artist}>
+            <div className={styles.leftArrow} />
+            <div className={styles.rightArrow} />
+            <p>{track.artists[0].name}</p>
+          </div>
+          <div className={styles.block} />
+        </div>
+        <p>{track.album.name}</p>
       </div>
-      <div className={styles.TrackButton}>
-        <button aria-label={trackButton.ariaLabel} onClick={handleClick}>
-          {trackButton.label}
+      <div className={styles.TrackButton} onClick={handleClick}>
+        <button
+          className={`${mainStyles.pushable} ${styles.orangeBtn} ${mainStyles.insetGreyBG}`}
+          aria-label={trackButton.ariaLabel}
+        >
+          <span className={`${styles.orangeBtnFront} ${mainStyles.front}`}>
+            {trackButton.label}
+          </span>
         </button>
       </div>
     </div>

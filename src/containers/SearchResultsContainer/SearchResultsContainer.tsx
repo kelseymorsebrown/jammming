@@ -5,6 +5,7 @@ import { SearchContext } from '../../context/SearchContext';
 import { PlaylistContext } from '../../context/PlaylistContext';
 import { UserContext } from '../../context/UserContext';
 import styles from './SearchResultsContainer.module.css';
+import mainStyles from '../MainContainer/MainContainer.module.css';
 
 // Import Types
 import {
@@ -28,7 +29,7 @@ function SearchResultsContainer() {
   const { addTrack } = React.useContext(PlaylistContext) as PlaylistContextType;
 
   const addButton: TrackButton = {
-    label: '+',
+    label: '﹢',
     ariaLabel: 'Add Track',
     callback: addTrack,
   };
@@ -74,7 +75,7 @@ function SearchResultsContainer() {
   };
 
   return (
-    <div className={styles.colLeft}>
+    <div className={`${mainStyles.colLeft} ${mainStyles.ColumnWrapper}`}>
       {searchResults?.trackList ? (
         <SearchResults
           tracks={searchResults.trackList}

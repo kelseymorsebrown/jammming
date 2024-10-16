@@ -3,6 +3,7 @@ import spotifyAPI from '../../utils/spotifyAPI';
 import { UserContext } from '../../context/UserContext';
 import { UserContextType } from '../../utils/types';
 import styles from './LoginContainer.module.css';
+import mainStyles from '../MainContainer/MainContainer.module.css';
 import { getHashParams, getQueryParams } from '../../utils/parsers';
 
 function LoginContainer() {
@@ -86,10 +87,11 @@ function LoginContainer() {
       ) : (
         <button
           id="login-button"
+          className={`${mainStyles.pushable} ${mainStyles.yellowBtn} ${mainStyles.insetBrownBG}`}
           data-testid="login-button"
           onClick={handleLogin}
         >
-          Log in with Spotify
+          <span className={mainStyles.front}>Log in with Spotify</span>
         </button>
       )}
     </div>

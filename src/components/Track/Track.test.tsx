@@ -34,7 +34,7 @@ it('Displays the track name', async () => {
     <Track
       track={mockTrack}
       trackButton={{
-        label: '+',
+        label: '﹢',
         ariaLabel: 'Add Track',
         callback: () => {},
       }}
@@ -49,7 +49,7 @@ it('Displays the album name and artist', async () => {
     <Track
       track={mockTrack}
       trackButton={{
-        label: '+',
+        label: '﹢',
         ariaLabel: 'Add Track',
         callback: () => {},
       }}
@@ -66,7 +66,7 @@ it('should call the callback function when clicked', async () => {
     <Track
       track={mockTrack}
       trackButton={{
-        label: '+',
+        label: '﹢',
         ariaLabel: 'Add Track',
         callback: handleClick,
       }}

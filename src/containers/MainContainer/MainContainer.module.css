@@ -1,0 +1,207 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: auto;
+  flex: 1 0 auto;
+  font-family: 'Days One', sans-serif;
+}
+
+.ResultsWrapper {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  padding-top: 30px;
+}
+
+.ColumnWrapper {
+  border-top: white solid 3px;
+  border-left: white solid 3px;
+  border-right: grey solid 3px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  background-color: hsl(203, 9%, 82%);
+  background-image: linear-gradient(
+    hsl(203, 9%, 82%) 70%,
+    hsl(203, 9%, 75%) 80%,
+    hsl(203, 9%, 70%) 100%
+  );
+}
+
+.colLeft {
+  height: 100%;
+  margin-right: 1%;
+  flex-basis: 45%;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.colRight {
+  height: 100%;
+  margin-left: 1%;
+  flex-basis: 45%;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+/* https://www.joshwcomeau.com/animation/3d-button/ */
+.pushable {
+  font-family: 'Fredoka', sans-serif;
+  padding: 0;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: solid 1px hsla(0, 0%, 0%, 0.8);
+  outline-offset: 4px;
+  box-sizing: border-box;
+  position: relative;
+  top: 6px;
+  box-shadow:
+    /* outer SD */
+    hsla(0, 0%, 0%, 0.6) 0px 1px 2px 1px,
+    hsla(0, 0%, 0%, 0.4) 0 -1px 3px 3px;
+  text-align: center;
+  position: relative;
+  transition: all 0.1s ease-out;
+}
+
+.pushable:enabled {
+  cursor: pointer;
+}
+
+.front {
+  transform: translateY(-6px);
+  box-sizing: border-box;
+  line-height: 0.75em;
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-radius: 5px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-left: 0;
+  border-right: 0;
+  position: relative;
+  transition: all 0.1s ease-out;
+}
+
+.pushable:enabled:active .front {
+  transform: translateY(-2px);
+}
+
+.yellowBtn {
+  font-size: 1em;
+  font-weight: 400;
+  background: linear-gradient(
+    to top,
+    hsl(39, 86%, 30%) 0%,
+    hsl(39, 81%, 35%) 6px
+  );
+  border-radius: 5px;
+  height: 35px;
+  .front {
+    background: linear-gradient(
+      to bottom,
+      hsl(39, 100%, 85%) 0%,
+      hsl(39, 85%, 82%) 6px
+    );
+    border-top-color: hsl(39, 71%, 92%);
+    border-bottom-color: hsl(39, 71%, 90%);
+    height: 35px;
+  }
+  margin-top: 10px;
+  margin-bottom: 15px;
+  .front {
+    text-shadow:
+      0 -2px 2px hsl(39, 71%, 50%),
+      0 1px 1px hsl(39, 71%, 90%);
+  }
+}
+
+.yellowBtn:disabled .front {
+  transform: translateY(-2px);
+}
+
+.yellowBtn:enabled {
+  color: hsl(0, 70%, 23%);
+}
+
+.yellowBtn:enabled:hover {
+  color: hsl(0, 97%, 45%);
+}
+
+.yellowBtn:enabled:active .front {
+  color: hsl(0, 97%, 45%);
+  text-shadow:
+    0 -2px 0 hsl(39, 74%, 68%),
+    0 1px 1px hsl(39, 100%, 76%),
+    0 0 4px hsl(0, 97%, 45%);
+}
+
+.insetGreyBG {
+  box-shadow:
+    /* outer SD */
+    hsla(0, 0%, 0%, 0.6) 0px 1px 2px 1px,
+    hsla(0, 0%, 0%, 0.4) 0 -1px 3px 3px,
+    /* outer HL */ hsla(0, 0%, 100%, 0.4) 2px 3px 3px 7px,
+    /* outer HL */ hsla(0, 0%, 100%, 0.9) 0 3px 2px 2px;
+}
+
+.insetBrownBG {
+  box-shadow:
+    hsla(39, 66%, 13%, 0.4) 3px 3px 7px inset,
+    /* outer SD */ hsla(22, 80%, 5%, 0.6) 0px 1px 2px 1px,
+    hsla(22, 80%, 5%, 0.4) 0 -1px 3px 3px,
+    /* outer HL */ hsla(33, 59%, 50%, 0.3) 1px 2px 2px 4px,
+    /* outer HL */ hsla(33, 59%, 50%, 0.4) 0 2px 1px 1px;
+}
+
+/* adapted from https://codepen.io/simurai/pen/kvyEeg */
+.MetallicBorder {
+  background-color: hsl(0, 0%, 90%);
+  margin: 1em;
+  border-radius: 20px;
+  padding: 0.75em;
+  box-shadow:
+  /* border */
+    inset hsla(0, 0%, 15%, 1) 0 0px 0px 2px,
+    /* soft SD */ inset hsla(0, 0%, 15%, 0.8) 0 -1px 5px 4px,
+    /* bottom SD */ inset hsla(0, 0%, 0%, 0.25) 0 -2px 1px 6px,
+    /* top HL */ inset hsla(0, 0%, 100%, 0.7) 0 2px 1px 7px,
+    /* outer SD */ hsla(0, 0%, 0%, 0.15) 0 -5px 6px 4px,
+    /* outer HL */ hsla(0, 0%, 100%, 0.5) 0 5px 6px 4px;
+  transition: color 0.2s;
+  flex-basis: 75%;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.insetBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  margin: 1em;
+  padding: 0.75em;
+  transition: color 0.2s;
+  flex-basis: 75%;
+  flex-grow: 0;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background-image: radial-gradient(
+    at 20% 0%,
+    hsl(161, 11%, 58%) 0,
+    hsl(161, 11%, 28%) 100%
+  );
+  box-shadow:
+    /* outer SD */
+    hsla(0, 0%, 0%, 0.4) 0 -1px 3px 3px,
+    /* outer HL */ hsla(0, 0%, 100%, 0.4) 2px 3px 3px 7px,
+    /* outer HL */ hsla(0, 0%, 100%, 0.9) 0 1px 2px 2px,
+    /*inner SD*/ hsla(39, 66%, 13%, 0.4) 3px 3px 7px inset;
+}
+
+.subheader {
+  width: 75%;
+}

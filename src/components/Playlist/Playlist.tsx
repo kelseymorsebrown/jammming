@@ -1,5 +1,6 @@
 import React, { useState, MouseEvent } from 'react';
 import styles from './Playlist.module.css';
+import mainStyles from '../../containers/MainContainer/MainContainer.module.css';
 import { TrackData, TrackButton } from '../../utils/types';
 import Tracklist from '../Tracklist/Tracklist';
 
@@ -22,29 +23,34 @@ function Playlist({
 }: PlaylistProps) {
   return (
     <div className={styles.Playlist}>
-      <div className={styles.PlaylistName}>
-        <input
-          type="text"
-          name="title"
-          id="title"
-          data-testid="playlist-name"
-          value={playlistName}
-          placeholder="Your Playlist"
-          onChange={onChangePlaylistName}
-        />
+      <div className={styles.PlaylistSubhead}>
+        <div className={`${mainStyles.insetBox} ${mainStyles.subheader}`}>
+          <h2>
+            <input
+              className={styles.PlaylistName}
+              type="text"
+              name="title"
+              id="title"
+              data-testid="playlist-name"
+              value={playlistName}
+              placeholder="Your Playlist"
+              onChange={onChangePlaylistName}
+            />
+          </h2>
+        </div>
+        <button
+          className={`${mainStyles.pushable} ${mainStyles.yellowBtn} ${mainStyles.insetGreyBG}`}
+          onClick={onSubmit}
+          data-testid="save-playlist-button"
+        >
+          <span className={mainStyles.front}>Save To Spotify</span>
+        </button>
       </div>
       {hasTracks ? (
         <Tracklist tracks={tracks} trackButton={trackButton} />
       ) : (
         <div />
       )}
-      <button
-        className={styles.SaveButton}
-        onClick={onSubmit}
-        data-testid="save-playlist-button"
-      >
-        Save To Spotify
-      </button>
     </div>
   );
 }

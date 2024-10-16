@@ -1,9 +1,15 @@
-button,
-p {
-  font-size: calc(10px + 0.25vmin);
-  margin: 0;
-}
-
 .login {
+  font-family: 'Fredoka', sans-serif;
   font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  color: white;
+  padding: 10px;
+
+  p {
+    font-size: 12pt;
+    margin: 0;
+  }
 }

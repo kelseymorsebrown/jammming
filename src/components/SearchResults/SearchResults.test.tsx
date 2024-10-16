@@ -4,7 +4,7 @@ import '@testing-library/jest-dom';
 
 describe('SearchResults', () => {
   const mockTracksButton = {
-    label: '+',
+    label: '﹢',
     ariaLabel: 'Add Track',
     callback: () => {},
   };
