@@ -107,8 +107,7 @@ it('Renders tracks when hasTracks is true', async () => {
     />
   );
 
-  const track = screen.queryByText('Example Track Name');
-
+  const track = screen.queryByText(`"Example Track Name"`);
   expect(track).toBeInTheDocument();
 });
 

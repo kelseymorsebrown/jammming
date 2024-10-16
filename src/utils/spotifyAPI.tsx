@@ -34,10 +34,7 @@ const spotifyAPI = {
     url += '&state=' + encodeURIComponent(state);
     url += '&show_dialog=true';
 
-    console.log(REDIRECT_URI);
-    console.log(process.env);
-
-    //window.location.assign(url);
+    window.location.assign(url);
   },
   getUser(stateKey: string, accessToken: string | null) {
     return fetch('https://api.spotify.com/v1/me', {
