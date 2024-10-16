@@ -24,4 +24,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Run tests
+        env:
+          REACT_APP_CLIENT_ID: ${{ secrets.API_CLIENT_ID }}
         run: npm run test
