@@ -1,0 +1,9 @@
+# Ignore artifacts:
+dist/*
+*/node_modules
+node_modules
+*/build
+.sass-cache
+.tmp
+.DS_Store
+coverage
