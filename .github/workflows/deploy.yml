@@ -4,7 +4,7 @@ on:
     types:
       - closed
     branches:
-      - 'releases/**'
+      - 'main'
   workflow_dispatch:
 permissions:
   contents: read
