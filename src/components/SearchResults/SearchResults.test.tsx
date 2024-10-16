@@ -1,6 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import SearchResults from './SearchResults';
 import '@testing-library/jest-dom';
+import React from 'react';
+
+/* eslint-disable no-empty-function, @typescript-eslint/no-empty-function */
 
 describe('SearchResults', () => {
   const mockTracksButton = {
@@ -99,3 +102,4 @@ describe('SearchResults', () => {
     );
   });
 });
+/* eslint-enable no-empty-function, @typescript-eslint/no-empty-function */

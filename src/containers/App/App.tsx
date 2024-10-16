@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './App.module.css';
 import UserProvider from '../../context/UserContext';
-import LoginContainer from '../LoginContainer/LoginContainer';
 import MainContainer from '../MainContainer/MainContainer';
 
 function App() {

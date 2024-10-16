@@ -1,7 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import Playlist from './Playlist';
 import '@testing-library/jest-dom';
+import React from 'react';
 
+/* eslint-disable no-empty-function, @typescript-eslint/no-empty-function */
 it('Displays the playlist submit button', async () => {
   render(
     <Playlist
@@ -107,7 +109,7 @@ it('Renders tracks when hasTracks is true', async () => {
     />
   );
 
-  const track = screen.queryByText(`"Example Track Name"`);
+  const track = screen.queryByText(`“Example Track Name”`);
   expect(track).toBeInTheDocument();
 });
 
@@ -159,3 +161,5 @@ it('Renders no tracks when hasTracks is false', async () => {
 
   expect(track).toBeNull();
 });
+
+/* eslint-enable no-empty-function, @typescript-eslint/no-empty-function */

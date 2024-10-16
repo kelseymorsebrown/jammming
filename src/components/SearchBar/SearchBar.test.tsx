@@ -5,6 +5,9 @@ import UserProvider from '../../context/UserContext';
 import spotifyAPI from '../../utils/spotifyAPI';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
+import React from 'react';
+
+/* eslint-disable no-empty-function, @typescript-eslint/no-empty-function */
 
 jest.mock('../../utils/spotifyAPI');
 
@@ -45,9 +48,7 @@ describe('SearchBar', () => {
       </UserProvider>
     );
 
-    expect(
-      screen.queryByPlaceholderText(/Search Spotify/i)
-    ).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/Search Spotify/i)).toBeInTheDocument();
   });
 
   it('updates playlist name with user input', async () => {
@@ -96,3 +97,5 @@ describe('SearchBar', () => {
     });
   });
 });
+
+/* eslint-enable no-empty-function, @typescript-eslint/no-empty-function */

@@ -1,9 +1,7 @@
-import { waitFor, render, screen } from '@testing-library/react';
-import spotifyAPI from '../../utils/spotifyAPI';
-import userEvent from '@testing-library/user-event';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-
 import App from './App';
+import React from 'react';
 
 describe('App', () => {
   it('renders jammming header', async () => {

@@ -6,6 +6,9 @@ import PlaylistProvider from '../../context/PlaylistContext';
 import UserProvider from '../../context/UserContext';
 import { PlaylistInitialValues, UserInitialValues } from '../../utils/types';
 import spotifyAPI from '../../utils/spotifyAPI';
+import React from 'react';
+
+/* eslint-disable no-empty-function, @typescript-eslint/no-empty-function */
 
 describe('PlaylistContainer', () => {
   const mockTrackList = [
@@ -156,7 +159,7 @@ describe('PlaylistContainer', () => {
       renderPlaylistContainer(mockPlInit, mockUserInit);
       const submitButton = screen.getByTestId('save-playlist-button');
 
-      expect(screen.queryByDisplayValue(mockPlaylistName)).toBeInTheDocument;
+      expect(screen.getByDisplayValue(mockPlaylistName)).toBeInTheDocument;
 
       userEvent.click(submitButton);
       await waitFor(() => {
@@ -173,7 +176,7 @@ describe('PlaylistContainer', () => {
       renderPlaylistContainer(mockPlInit, mockUserInit);
       const submitButton = screen.getByTestId('save-playlist-button');
 
-      expect(screen.queryByTestId(`track-${mockTrackList[0].id}`))
+      expect(screen.getByTestId(`track-${mockTrackList[0].id}`))
         .toBeInTheDocument;
 
       userEvent.click(submitButton);
@@ -184,3 +187,4 @@ describe('PlaylistContainer', () => {
     });
   });
 });
+/* eslint-enable no-empty-function, @typescript-eslint/no-empty-function */

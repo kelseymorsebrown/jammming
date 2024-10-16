@@ -21,13 +21,8 @@
     "eject": "react-scripts eject",
     "postinstall": "npm audit --omit=dev --audit-level=none",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "deploy": "gh-pages -d build",
+    "lint": "eslint  src/**/*"
   },
   "browserslist": {
     "production": [
@@ -44,8 +39,13 @@
   "devDependencies": {
     "@testing-library/dom": "^10.3.1",
     "@testing-library/react": "^16.0.0",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.37.1",
+    "eslint-plugin-react-hooks": "^5.0.0",
     "gh-pages": "^6.2.0",
-    "prettier": "3.3.2",
+    "prettier": "^3.3.2",
     "react-scripts": "5.0.1"
   }
 }

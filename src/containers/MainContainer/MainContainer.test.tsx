@@ -1,3 +1,4 @@
+import React from 'react';
 import { waitFor, render, screen } from '@testing-library/react';
 import spotifyAPI from '../../utils/spotifyAPI';
 import userEvent from '@testing-library/user-event';
@@ -13,7 +14,7 @@ const mockedSpotifyAPI = spotifyAPI as jest.Mocked<typeof spotifyAPI>;
 describe('MainContainer', () => {
   const mockValidSearch = 'test';
 
-  let originalWindowLocation = window.location;
+  const originalWindowLocation = window.location;
 
   const mockUserInit: UserInitialValues = {
     isLoggedIn: true,
@@ -114,7 +115,7 @@ describe('MainContainer', () => {
     userEvent.click(button);
 
     await waitFor(() => {
-      expect(screen.getByText(`"Example Track Name"`)).toBeInTheDocument();
+      expect(screen.getByText(`“Example Track Name”`)).toBeInTheDocument();
     });
   });
 

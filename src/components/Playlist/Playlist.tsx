@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent } from 'react';
+import React from 'react';
 import styles from './Playlist.module.css';
 import mainStyles from '../../containers/MainContainer/MainContainer.module.css';
 import { TrackData, TrackButton } from '../../utils/types';
@@ -8,7 +8,7 @@ type PlaylistProps = {
   playlistName: string;
   onChangePlaylistName: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  hasTracks: Boolean;
+  hasTracks: boolean;
   tracks: TrackData[];
   trackButton: TrackButton;
 };
