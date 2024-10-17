@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy to GitHub Pages Workflow
 on:
   pull_request:
     types:
@@ -20,7 +20,6 @@ jobs:
   lint:
     uses: ./.github/workflows/lint.yml
   build:
-    needs: test
     uses: ./.github/workflows/build.yml
   # Deployment job
   deploy:
@@ -28,7 +27,7 @@ jobs:
       name: github-pages
       url: https://kelseymorsebrown.github.io/jammming/
     runs-on: ubuntu-latest
-    needs: build
+    needs: test
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
