@@ -1,4 +1,4 @@
-name: Run Unit Tests
+name: Build App
 on:
   workflow_call:
   workflow_dispatch:
@@ -10,7 +10,7 @@ concurrency:
   group: 'pages'
   cancel-in-progress: false
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -22,7 +22,12 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Run tests
+      - name: Build project
         env:
+          CI: true
           REACT_APP_CLIENT_ID: ${{ secrets.API_CLIENT_ID }}
-        run: npm run test
+        run: npx --no-install npm run build
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./build
