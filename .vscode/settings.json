@@ -5,9 +5,8 @@
   },
   "prettier.requireConfig": true,
   "prettier.enable": true,
-  "cSpell.words": [
-    "Jammming",
-    "testid",
-    "Tracklist"
-  ]
+  "cSpell.words": ["Jammming", "testid", "Tracklist"],
+  "yaml.schemas": {
+    "https://json.schemastore.org/github-workflow.json": "file:///Users/kelseymorse-brown/develop/jammming/.github/workflows/deploy.yml"
+  }
 }

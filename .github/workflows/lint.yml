@@ -1,16 +1,9 @@
-name: Run Unit Tests
+name: Run linter
 on:
   workflow_call:
   workflow_dispatch:
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-concurrency:
-  group: 'pages'
-  cancel-in-progress: false
 jobs:
-  test:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -22,7 +15,5 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Run tests
-        env:
-          REACT_APP_CLIENT_ID: ${{ secrets.API_CLIENT_ID }}
-        run: npm run test
+      - name: Run linter
+        run: npm run lint
