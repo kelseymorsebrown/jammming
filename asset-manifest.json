@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/jammming/static/css/main.3ef9b848.css",
-    "main.js": "/jammming/static/js/main.877e0d25.js",
+    "main.js": "/jammming/static/js/main.1538ce93.js",
     "static/js/453.a69270cd.chunk.js": "/jammming/static/js/453.a69270cd.chunk.js",
     "static/media/woodPanel.jpg": "/jammming/static/media/woodPanel.8826388695df296ebc9d.jpg",
     "index.html": "/jammming/index.html",
     "main.3ef9b848.css.map": "/jammming/static/css/main.3ef9b848.css.map",
-    "main.877e0d25.js.map": "/jammming/static/js/main.877e0d25.js.map",
+    "main.1538ce93.js.map": "/jammming/static/js/main.1538ce93.js.map",
     "453.a69270cd.chunk.js.map": "/jammming/static/js/453.a69270cd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3ef9b848.css",
-    "static/js/main.877e0d25.js"
+    "static/js/main.1538ce93.js"
   ]
 }
