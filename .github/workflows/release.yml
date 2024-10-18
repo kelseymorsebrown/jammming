@@ -16,6 +16,9 @@ jobs:
   release:
     runs-on: ubuntu-latest
     if: startsWith(github.event.pull_request.title, 'Release:') && github.event.pull_request.merged == true
+    env:
+      MY_NAME: kelseymorsebrown
+      MY_EMAIL: kelsey@artsortment.me
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -28,11 +31,11 @@ jobs:
         run: npm ci
       - name: Set up Git
         run: |
-          git config user.name "kelseymorsebrown"
-          git config user.email "kelsey@artsortment.me"
+          git config --global user.name $MY_NAME
+          git config --global user.email $MY_EMAIL
+          git remote set-url origin https://$MY_NAME:${{ secrets.MY_PASSWORD }}@github.com/$MY_NAME/jammming.git
       - name: Build and Deploy
         run: |
-          git config user.name
           npm run deploy
       - name: Get tag
         id: get_tag
