@@ -85,16 +85,20 @@ function LoginContainer() {
   return (
     <div id="login" className={styles.login}>
       {isLoggedIn ? (
-        <p>Logged in as {user?.displayName}</p>
+        <div className={styles.username}>
+          <p>Logged in as {user?.displayName}</p>
+        </div>
       ) : (
-        <button
-          id="login-button"
-          className={`${mainStyles.pushable} ${mainStyles.yellowBtn} ${mainStyles.insetBrownBG}`}
-          data-testid="login-button"
-          onClick={handleLogin}
-        >
-          <span className={mainStyles.front}>Log in with Spotify</span>
-        </button>
+        <div className={styles.loginButton}>
+          <button
+            id="login-button"
+            className={`${mainStyles.pushable} ${mainStyles.yellowBtn} ${mainStyles.insetBrownBG}`}
+            data-testid="login-button"
+            onClick={handleLogin}
+          >
+            <span className={mainStyles.front}>Log in with Spotify</span>
+          </button>
+        </div>
       )}
     </div>
   );

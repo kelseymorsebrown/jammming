@@ -5,8 +5,73 @@
   align-items: stretch;
 }
 
+.metalic {
+  background: #666;
+  background: 
+    /* texture */
+    repeating-linear-gradient(
+        transparent 0 13%,
+        #ffffff02 0 calc(13% + 1px),
+        transparent 0
+      )
+      30% 0% / 40% 100%,
+    repeating-linear-gradient(
+        transparent 0 7%,
+        #ffffff03 0 calc(7% + 1px),
+        transparent 0
+      )
+      70% 0% / 33% 100%,
+    repeating-linear-gradient(
+        transparent 0 11%,
+        #ffffff02 0 calc(11% + 1px),
+        transparent 0
+      ) -10% 0% / 35% 100%,
+    repeating-linear-gradient(
+        transparent 0 17%,
+        #ffffff04 0 calc(17% + 1px),
+        transparent 0
+      )
+      110% 0% / 27% 100%,
+    repeating-linear-gradient(
+        transparent 0 13%,
+        #00000002 0 calc(13% + 1px),
+        transparent 0
+      )
+      60% -10% / 33% 100%,
+    repeating-linear-gradient(
+        transparent 0 8%,
+        #00000002 0 calc(8% + 1px),
+        transparent 0
+      )
+      21% 2% / 27% 100%,
+    repeating-linear-gradient(
+        transparent 0 8%,
+        #00000001 0 calc(8% + 1px),
+        transparent 0
+      )
+      31% 7% / 19% 100%,
+    /* /texture */ /* texture? */
+      radial-gradient(farthest-side, #00000011, #0000 60%) 20% 50% / 50% 5%,
+    radial-gradient(farthest-side, #ffffff08, #0000 60%) 50% 30% / 50% 7%,
+    /* colors and shadows */
+      radial-gradient(100% 10% at 60% 3%, #fff1, #0000 50%),
+    radial-gradient(100% 10% at 60% 97%, #fff3, #0000 50%),
+    radial-gradient(150% 10% at 50% 99%, #0009, #0000 50%),
+    linear-gradient(#fff1, #fff0 15%, #fff1 85%, #fff3),
+    linear-gradient(#fff2, #fff0 20%, #0000 96%, #0006),
+    linear-gradient(
+      90deg,
+      #555,
+      #333 10%,
+      #ccc 33%,
+      #666 48% 52%,
+      #fff 66% 75%,
+      #555 90% 95%,
+      #ccc
+    );
+}
+
 .header {
-  background-color: #282c34;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,6 +95,7 @@
 }
 
 .footer {
+  color: hsl(0, 0%, 5%);
   display: flex;
   text-align: center;
   flex-direction: column-reverse;
@@ -37,37 +103,9 @@
   width: 100%;
   height: 2.5rem;
   font-family: 'Fredoka', sans-serif;
-  background-color: hsl(203, 9%, 82%);
-  background-image: linear-gradient(
-    hsl(203, 9%, 20%) 0%,
-    hsl(203, 9%, 30%) 5%,
-    hsl(203, 9%, 80%) 40%,
-    hsl(203, 9%, 60%) 60%,
-    hsl(203, 9%, 50%) 75%,
-    hsl(203, 9%, 60%) 90%,
-    hsl(203, 9%, 80%)
-  );
-  /* -webkit-repeating-linear-gradient(
-      left,
-      #ffffff00 0%,
-      #ffffff00 1.5%,
-      #ffffff1a 1.875%
-    ),
-    -webkit-repeating-linear-gradient(left, #00000000 0%, #00000000 1%, #00000008
-          1.875%),
-    -webkit-repeating-linear-gradient(left, #ffffff00 0%, #ffffff00 0.3%, #ffffff26
-          0.55%),
-    linear-gradient(
-      180deg,
-      hsl(240, 1%, 85%) 0%,
-      hsl(0, 0%, 90%) 15%,
-      hsl(240, 1%, 85%) 30%,
-      hsl(0, 0%, 78%) 45%,
-      hsl(240, 2%, 76%) 60%,
-      hsl(0, 0%, 70%) 70%,
-      hsl(240, 2%, 76%) 80%,
-      hsl(0, 0%, 78%) 100%
-    ); */
+  text-shadow:
+    0 -2px 2px hsl(0, 0%, 38%),
+    0 1px 1px hsl(0, 0%, 83%);
 }
 
 input[type='submit']:hover:enabled,
@@ -78,16 +116,15 @@ button:hover:enabled {
 /* https://css-tricks.com/how-to-create-neon-text-with-css/ */
 
 .glow {
-  font-size: 80px;
   color: #fff;
   text-align: center;
   text-shadow:
     /* White glow */
-    0 0 1px #fff,
-    0 0 3px #fff,
-    /* 0 0 5px #fff, */ /* Green glow */ 0 0 22px #0fa,
-    0 0 32px #0fa,
-    0 0 42px #0fa,
-    0 0 52px #0fa,
-    0 0 82px #0fa;
+    0 0 1px hsl(0, 0%, 100%),
+    0 0 3px hsl(0, 0%, 100%),
+    /* Green glow */ 0 0 22px hsl(160, 100%, 50%),
+    0 0 32px hsl(160, 100%, 50%),
+    0 0 42px hsl(160, 100%, 50%),
+    0 0 52px hsl(160, 100%, 50%),
+    0 0 82px hsl(160, 100%, 50%);
 }

@@ -17,9 +17,11 @@ jobs:
     runs-on: ubuntu-latest
     if: startsWith(github.event.pull_request.title, 'Release:') && github.event.pull_request.merged == true
     env:
+      CI: true
       MY_NAME: kelseymorsebrown
       MY_EMAIL: kelsey@artsortment.me
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REACT_APP_CLIENT_ID: ${{ secrets.API_CLIENT_ID }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

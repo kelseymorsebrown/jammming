@@ -11,6 +11,7 @@ type PlaylistProps = {
   hasTracks: boolean;
   tracks: TrackData[];
   trackButton: TrackButton;
+  hasValidPlaylist: boolean;
 };
 
 function Playlist({
@@ -20,6 +21,7 @@ function Playlist({
   hasTracks,
   tracks,
   trackButton,
+  hasValidPlaylist,
 }: PlaylistProps) {
   return (
     <div className={styles.Playlist}>
@@ -33,7 +35,7 @@ function Playlist({
               id="title"
               data-testid="playlist-name"
               value={playlistName}
-              placeholder="Your Playlist"
+              placeholder="Click to Name Your Playlist"
               onChange={onChangePlaylistName}
             />
           </h2>
@@ -42,6 +44,7 @@ function Playlist({
           className={`${mainStyles.pushable} ${mainStyles.yellowBtn} ${mainStyles.insetGreyBG}`}
           onClick={onSubmit}
           data-testid="save-playlist-button"
+          disabled={!hasValidPlaylist}
         >
           <span className={mainStyles.front}>Save To Spotify</span>
         </button>

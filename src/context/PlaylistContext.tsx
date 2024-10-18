@@ -16,6 +16,7 @@ const PlaylistProvider: React.FC<{
   );
   const [playlistName, setPlaylistName] = useState(initialValues.name);
   const [hasTracklist, setHasTracklist] = useState(false);
+  const [hasValidPlaylist, setHasValidPlaylist] = useState(false);
 
   const addTrack = (track: TrackData) => {
     const trackNotAdded =
@@ -44,12 +45,21 @@ const PlaylistProvider: React.FC<{
     }
   }, [playlistTracks]);
 
+  useEffect(() => {
+    if (hasTracklist && !!playlistName && playlistName.length > 0) {
+      setHasValidPlaylist(true);
+    } else {
+      setHasValidPlaylist(false);
+    }
+  }, [hasTracklist, playlistName]);
+
   return (
     <PlaylistContext.Provider
       value={{
         playlistTracks,
         playlistName,
         hasTracklist,
+        hasValidPlaylist,
         addTrack,
         removeTrack,
         setPlaylistName,

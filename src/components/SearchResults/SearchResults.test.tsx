@@ -4,7 +4,6 @@ import '@testing-library/jest-dom';
 import React from 'react';
 
 /* eslint-disable no-empty-function, @typescript-eslint/no-empty-function */
-
 describe('SearchResults', () => {
   const mockTracksButton = {
     label: '﹢',
@@ -12,94 +11,41 @@ describe('SearchResults', () => {
     callback: () => {},
   };
 
-  const mockPrevButton = {
-    label: '⏴',
-    ariaLabel: 'Previous',
-    callback: () => {},
-    id: 'previous-button',
-    enabled: false,
-  };
-
-  const mockNextButton = {
-    label: '⏵',
-    ariaLabel: 'Next',
-    callback: () => {},
-    id: 'next-button',
-    enabled: false,
-  };
-
-  it('Renders the search results header', async () => {
-    render(
-      <SearchResults
-        tracks={[]}
-        trackButton={mockTracksButton}
-        prevButton={mockPrevButton}
-        nextButton={mockNextButton}
-      />
-    );
-
-    expect(screen.getByText('Results')).toBeInTheDocument();
-  });
-
-  it('Renders enabled previous buttons when enabled is true', () => {
-    render(
-      <SearchResults
-        tracks={[]}
-        trackButton={mockTracksButton}
-        prevButton={{ ...mockPrevButton, enabled: true }}
-        nextButton={{ ...mockNextButton, enabled: false }}
-      />
-    );
-
-    expect(screen.getByLabelText(mockPrevButton.ariaLabel)).not.toBeDisabled();
-  });
-
-  it('Renders disabled previous button when enabled is false', () => {
-    render(
-      <SearchResults
-        tracks={[]}
-        trackButton={mockTracksButton}
-        prevButton={{ ...mockPrevButton, enabled: false }}
-        nextButton={{ ...mockNextButton, enabled: true }}
-      />
-    );
-
-    expect(screen.getByLabelText(mockPrevButton.ariaLabel)).toBeDisabled();
-  });
-
-  it('Renders enabled next button when enabled is true', () => {
-    render(
-      <SearchResults
-        tracks={[]}
-        trackButton={mockTracksButton}
-        prevButton={{ ...mockPrevButton, enabled: false }}
-        nextButton={{ ...mockNextButton, enabled: true }}
-      />
-    );
-    expect(screen.getByLabelText(mockNextButton.ariaLabel)).not.toBeDisabled();
-  });
-
-  it('Renders disabled next button when enabled is false', () => {
-    render(
-      <SearchResults
-        tracks={[]}
-        trackButton={mockTracksButton}
-        prevButton={{ ...mockPrevButton, enabled: true }}
-        nextButton={{ ...mockNextButton, enabled: false }}
-      />
-    );
-    expect(screen.getByLabelText(mockNextButton.ariaLabel)).toBeDisabled();
-  });
+  const mockTrackList = [
+    {
+      album: {
+        id: '2up3OPMp9Tb4dAKM2erWXQ',
+        name: 'Example Album',
+        type: 'album',
+        artists: [
+          {
+            id: 'string',
+            name: 'Example Artist',
+            type: 'artist',
+          },
+        ],
+      },
+      artists: [
+        {
+          id: 'string',
+          name: 'Example Artist',
+          type: 'artist',
+        },
+      ],
+      id: 'string',
+      uri: 'spotify:track:string',
+      name: 'Example Track Name',
+      type: 'track',
+    },
+  ];
 
   it('Renders the search results', () => {
     render(
-      <SearchResults
-        tracks={[]}
-        trackButton={mockTracksButton}
-        prevButton={mockPrevButton}
-        nextButton={mockNextButton}
-      />
+      <SearchResults tracks={mockTrackList} trackButton={mockTracksButton} />
     );
+
+    const track = screen.queryByText(`“Example Track Name”`);
+    expect(track).toBeInTheDocument();
   });
 });
 /* eslint-enable no-empty-function, @typescript-eslint/no-empty-function */

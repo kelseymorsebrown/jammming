@@ -23,7 +23,9 @@ function Track({ track, trackButton }: AppProps) {
       data-testid={`track-${track.id}`}
     >
       <div className={styles.TrackInfo}>
-        <h4 className={styles.trackName}>&ldquo;{track.name}&rdquo;</h4>
+        <div className={styles.trackName}>
+          <h4>&ldquo;{track.name}&rdquo;</h4>
+        </div>
         <div className={styles.artistContainer}>
           <div className={styles.block} />
           <div className={styles.Artist}>
@@ -33,7 +35,9 @@ function Track({ track, trackButton }: AppProps) {
           </div>
           <div className={styles.block} />
         </div>
-        <p>{track.album.name}</p>
+        <div className={styles.albumName}>
+          <p>{track.album.name}</p>
+        </div>
       </div>
       <div className={styles.TrackButton} onClick={handleClick}>
         <button
