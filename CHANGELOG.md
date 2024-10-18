@@ -1,5 +1,19 @@
 ### CHANGELOG
 
+## [Unreleased]
+
+### Added
+
+- Playlist submit button is now disabled when the playlist is missing a name or tracks
+
+### Fixed
+
+- Github actions deploy workflow tweaks to get permissions working
+
+### Updated
+
+- CSS updates to the login modal, header, and footer
+
 ## [v1.0.1]
 
 ### Added
