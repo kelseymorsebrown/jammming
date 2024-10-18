@@ -115,6 +115,11 @@ describe('SearchResultsContainer', () => {
       </UserProvider>
     );
   }
+  it('Renders the search results header', async () => {
+    renderSearchResultsContainer(mockUserInit, mockSerResInit, mockPlInit);
+
+    expect(screen.getByText('Results')).toBeInTheDocument();
+  });
 
   it('renders the search results component when there are results', () => {
     renderSearchResultsContainer(mockUserInit, mockSerResInit, mockPlInit);
@@ -274,6 +279,51 @@ describe('SearchResultsContainer', () => {
     });
 
     getTracksSpy.mockReset;
+  });
+
+  it('Renders disabled next button when next is null', () => {
+    renderSearchResultsContainer(mockUserInit, mockSerResInit, mockPlInit);
+
+    const nextButton = screen.getByTestId('next-button');
+    expect(nextButton).toBeDisabled();
+  });
+
+  it('Renders enabled next buttons when next is not null', () => {
+    const mockInitResult = {
+      ...mockSerResInit,
+      results: {
+        ...mockSerResInit.results,
+        next: 'https://api.spotify.com/v1/search?query=test&type=track&offset=0&limit=2',
+      },
+    };
+
+    renderSearchResultsContainer(mockUserInit, mockInitResult, mockPlInit);
+
+    const nextButton = screen.getByTestId('next-button');
+    expect(nextButton).not.toBeDisabled();
+  });
+
+  it('Renders disabled previous button when previous is null', () => {
+    renderSearchResultsContainer(mockUserInit, mockSerResInit, mockPlInit);
+
+    const previousButton = screen.getByTestId('previous-button');
+    expect(previousButton).toBeDisabled();
+  });
+
+  it('Renders enabled previous button when previous is not null', () => {
+    const mockInitResult = {
+      ...mockSerResInit,
+      results: {
+        ...mockSerResInit.results,
+        previous:
+          'https://api.spotify.com/v1/search?query=test&type=track&offset=0&limit=2',
+      },
+    };
+
+    renderSearchResultsContainer(mockUserInit, mockInitResult, mockPlInit);
+
+    const previousButton = screen.getByTestId('previous-button');
+    expect(previousButton).not.toBeDisabled();
   });
 });
 

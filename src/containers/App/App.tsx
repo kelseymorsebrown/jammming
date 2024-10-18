@@ -14,12 +14,12 @@ function App() {
   return (
     <div className={styles.App}>
       <UserProvider initialValues={userInitialValues}>
-        <header className={`${styles.header} ${styles.glow}`}>
+        <header className={`${styles.header} ${styles.glow} ${styles.metalic}`}>
           <h1>Jammming</h1>
         </header>
         <MainContainer />
       </UserProvider>
-      <footer className={styles.footer}>
+      <footer className={`${styles.footer} ${styles.metalic}`}>
         <p>Kelsey Morse-Brown 2024</p>
       </footer>
     </div>

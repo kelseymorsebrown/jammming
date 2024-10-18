@@ -121,6 +121,36 @@ describe('PlaylistContainer', () => {
     });
   });
 
+  it('renders a disabled submit button when no playlist name', async () => {
+    const mockPlInit = {
+      tracks: mockTrackList,
+      name: '',
+    };
+    renderPlaylistContainer(mockPlInit, mockUserInit);
+    const submitButton = screen.getByTestId('save-playlist-button');
+    expect(submitButton).toBeDisabled();
+  });
+
+  it('renders a disabled submit button when no tracks', async () => {
+    const mockPlInit = {
+      tracks: [],
+      name: mockPlaylistName,
+    };
+    renderPlaylistContainer(mockPlInit, mockUserInit);
+    const submitButton = screen.getByTestId('save-playlist-button');
+    expect(submitButton).toBeDisabled();
+  });
+
+  it('renders an enabled submit button when there is a playlist name and tracks', async () => {
+    const mockPlInit = {
+      tracks: mockTrackList,
+      name: mockPlaylistName,
+    };
+    renderPlaylistContainer(mockPlInit, mockUserInit);
+    const submitButton = screen.getByTestId('save-playlist-button');
+    expect(submitButton).not.toBeDisabled();
+  });
+
   describe('handles submitPlaylist', () => {
     beforeEach(() => {
       mockedSpotifyAPI.createPlaylist.mockResolvedValue(mockPlaylistId);

@@ -17,11 +17,12 @@ it('Displays the playlist submit button', async () => {
         ariaLabel: 'Remove Track',
         callback: () => {},
       }}
+      hasValidPlaylist={false}
     />
   );
 
-  const playListName = screen.getByText('Save To Spotify');
-  expect(playListName).toBeInTheDocument();
+  const submitButton = screen.getByTestId('save-playlist-button');
+  expect(submitButton).toBeInTheDocument();
 });
 
 it('Displays the placeholder playlist name when no playlist name', async () => {
@@ -37,12 +38,15 @@ it('Displays the placeholder playlist name when no playlist name', async () => {
         ariaLabel: 'Remove Track',
         callback: () => {},
       }}
+      hasValidPlaylist={false}
     />
   );
 
   const playlistName = screen.queryByTestId('playlist-name');
   expect(playlistName?.getAttribute('value')).toEqual('');
-  expect(playlistName?.getAttribute('placeholder')).toEqual('Your Playlist');
+  expect(playlistName?.getAttribute('placeholder')).toEqual(
+    'Click to Name Your Playlist'
+  );
 });
 
 it('Displays the playlist name when it exists', async () => {
@@ -58,6 +62,7 @@ it('Displays the playlist name when it exists', async () => {
         ariaLabel: 'Remove Track',
         callback: () => {},
       }}
+      hasValidPlaylist={false}
     />
   );
 
@@ -106,6 +111,7 @@ it('Renders tracks when hasTracks is true', async () => {
         ariaLabel: 'Remove Track',
         callback: () => {},
       }}
+      hasValidPlaylist={false}
     />
   );
 
@@ -154,12 +160,53 @@ it('Renders no tracks when hasTracks is false', async () => {
         ariaLabel: 'Remove Track',
         callback: () => {},
       }}
+      hasValidPlaylist={false}
     />
   );
 
   const track = screen.queryByText('Example Track Name');
 
   expect(track).toBeNull();
+});
+
+it('Renders disabled submit button hasValidPlaylist is false', async () => {
+  render(
+    <Playlist
+      playlistName=""
+      onChangePlaylistName={() => {}}
+      onSubmit={() => {}}
+      hasTracks={false}
+      tracks={[]}
+      trackButton={{
+        label: '﹣',
+        ariaLabel: 'Remove Track',
+        callback: () => {},
+      }}
+      hasValidPlaylist={false}
+    />
+  );
+  const submitButton = screen.getByTestId('save-playlist-button');
+  expect(submitButton).toBeDisabled();
+});
+
+it('Renders enabled submit button hasValidPlaylist is true', async () => {
+  render(
+    <Playlist
+      playlistName=""
+      onChangePlaylistName={() => {}}
+      onSubmit={() => {}}
+      hasTracks={false}
+      tracks={[]}
+      trackButton={{
+        label: '﹣',
+        ariaLabel: 'Remove Track',
+        callback: () => {},
+      }}
+      hasValidPlaylist={true}
+    />
+  );
+  const submitButton = screen.getByTestId('save-playlist-button');
+  expect(submitButton).not.toBeDisabled();
 });
 
 /* eslint-enable no-empty-function, @typescript-eslint/no-empty-function */

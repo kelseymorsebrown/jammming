@@ -58,6 +58,7 @@ export interface PlaylistContextType {
   setPlaylistTracks: (value: React.SetStateAction<TrackData[]>) => void;
   playlistName: string;
   hasTracklist: boolean;
+  hasValidPlaylist: boolean;
   addTrack: (track: TrackData) => void;
   removeTrack: (track: TrackData) => void;
   setPlaylistName: (value: React.SetStateAction<string>) => void;

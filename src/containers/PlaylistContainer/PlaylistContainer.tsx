@@ -19,6 +19,7 @@ function PlaylistContainer() {
     setPlaylistName,
     hasTracklist,
     removeTrack,
+    hasValidPlaylist,
   } = React.useContext(PlaylistContext) as PlaylistContextType;
 
   const { user, accessToken } = React.useContext(
@@ -82,6 +83,7 @@ function PlaylistContainer() {
         hasTracks={hasTracklist}
         tracks={playlistTracks}
         trackButton={removeButton}
+        hasValidPlaylist={hasValidPlaylist}
       />
     </div>
   );

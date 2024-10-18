@@ -1,15 +1,23 @@
 .login {
   font-family: 'Fredoka', sans-serif;
-  font-weight: bold;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  color: white;
-  padding: 10px;
+}
 
+.loginButton {
+  padding: 30px;
+}
+.username {
+  margin-top: 25px;
+  margin-bottom: 5px;
   p {
     font-size: 12pt;
     margin: 0;
+    color: hsl(31, 37%, 75%);
   }
+  text-shadow:
+    0 -2px 2px hsl(39, 66%, 13%),
+    0 1px 1px hsl(33, 59%, 50%);
 }
