@@ -21,7 +21,6 @@ jobs:
       MY_NAME: kelseymorsebrown
       MY_EMAIL: kelsey@artsortment.me
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      REACT_APP_CLIENT_ID: ${{ secrets.API_CLIENT_ID }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -38,6 +37,8 @@ jobs:
           git config --global user.email $MY_EMAIL
           git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/$MY_NAME/jammming.git
       - name: Build and Deploy
+        env:
+          REACT_APP_CLIENT_ID: ${{ secrets.API_CLIENT_ID }}
         run: |
           npm run deploy
       - name: Get tag
