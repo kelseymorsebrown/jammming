@@ -46,8 +46,8 @@ jobs:
         id: create_pr
         uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT_TOKEN }}
           branch: release/${{ steps.update_version.outputs.version }}
           title: 'Release: ${{ steps.update_version.outputs.version }} Pull Request'
-          body: 'This pull request contains the updated package.json with the new   	release version'
+          body: 'This pull request contains the updated package.json with the new ${{ steps.update_version.outputs.version }} release version'
           base: main
