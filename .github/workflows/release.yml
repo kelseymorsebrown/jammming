@@ -3,13 +3,19 @@ on:
   pull_request:
     types:
       - closed
+    branches:
+      - 'main'
 concurrency:
   group: 'pages'
   cancel-in-progress: false
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 jobs:
   release:
     runs-on: ubuntu-latest
-    if: startsWith(github.event.pull_request.title, 'Release:')
+    if: startsWith(github.event.pull_request.title, 'Release:') && github.event.pull_request.merged == true
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -25,7 +31,9 @@ jobs:
           git config user.name "kelseymorsebrown"
           git config user.email "kelsey@artsortment.me"
       - name: Build and Deploy
-        run: npm run deploy
+        run: |
+          git config user.name
+          npm run deploy
       - name: Get tag
         id: get_tag
         run: |
