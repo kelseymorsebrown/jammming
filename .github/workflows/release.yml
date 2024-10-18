@@ -19,6 +19,7 @@ jobs:
     env:
       MY_NAME: kelseymorsebrown
       MY_EMAIL: kelsey@artsortment.me
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -33,7 +34,7 @@ jobs:
         run: |
           git config --global user.name $MY_NAME
           git config --global user.email $MY_EMAIL
-          git remote set-url origin https://$MY_NAME:${{ secrets.MY_PASSWORD }}@github.com/$MY_NAME/jammming.git
+          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/$MY_NAME/jammming.git
       - name: Build and Deploy
         run: |
           npm run deploy
