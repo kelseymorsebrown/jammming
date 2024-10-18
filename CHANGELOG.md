@@ -1,29 +1,17 @@
 ### CHANGELOG
 
-## [Unreleased]
+## [v1.0.1]
 
 ### Added
 
-- tk
+- Github workflows
 
 ### Fixed
 
-- tk
-
-### Updated
-
-- tk
+- Issues with github pages compatability and spotify auth callback redirect
 
 ## [v1.0.0]
 
 ### Added
 
-- tk
-
-### Fixed
-
-- tk
-
-### Updated
-
-- tk
+- Initial deployment of the application.
