@@ -20,6 +20,10 @@ permissions:
 jobs:
   version:
     runs-on: ubuntu-latest
+    env:
+      MY_NAME: kelseymorsebrown
+      MY_EMAIL: kelsey@artsortment.me
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -32,8 +36,9 @@ jobs:
         run: npm ci
       - name: Set up Git
         run: |
-          git config user.name "kelseymorsebrown"
-          git config user.email "kelsey@jellyvision.com"
+          git config --global user.name $MY_NAME
+          git config --global user.email $MY_EMAIL
+          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/$MY_NAME/jammming.git
       - name: Update the version
         id: update_version
         run: |
