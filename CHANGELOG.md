@@ -1,5 +1,13 @@
 ### CHANGELOG
 
+## [Unreleased]
+
+### Fixed
+
+- Github actions version workflow tweaks to get git perms working
+- Deactivated yellow buttons now have a text color defined in CSS
+- the Results Wrapper height is set to 100vh instead of 100%
+
 ## [v1.0.2]
 
 ### Added
